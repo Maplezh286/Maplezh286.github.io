@@ -1,60 +1,143 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="我的个人博客 - 分享技术与生活">
-    <title>我的博客</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <!-- 代码高亮 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <!-- Markdown 解析 -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="我的个人博客 - 分享技术与生活">
+  <title>我的博客</title>
+  
+  <!-- 样式 -->
+  <link rel="stylesheet" href="assets/css/style.css?v=5">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/css/glightbox.min.css">
+  
+  <!-- 脚本 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/js/glightbox.min.js"></script>
+  <script src="assets/js/main.js?v=5"></script>
 </head>
 <body>
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">我的博客</a>
-            <button class="nav-toggle" aria-label="切换导航">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="active">首页</a></li>
-                <li><a href="about.html">关于</a></li>
-            </ul>
+  <!-- 隐藏 Checkbox (用于移动端抽屉菜单) -->
+  <input class="md-toggle" type="checkbox" id="__drawer" autocomplete="off">
+  
+  <!-- 遮罩层 -->
+  <label class="md-overlay" for="__drawer"></label>
+  
+  <!-- 顶部导航栏 -->
+  <header class="md-header" data-md-component="header">
+    <nav class="md-header__inner" aria-label="页眉">
+      <!-- 汉堡菜单按钮 (移动端) -->
+      <label class="md-header__button md-icon" for="__drawer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/>
+        </svg>
+      </label>
+      
+      <!-- Logo -->
+      <a href="." title="我的博客" class="md-header__button md-logo" data-md-component="logo">
+        <span>📝</span>
+        <span>我的博客</span>
+      </a>
+      
+      <!-- 页面标题 -->
+      <div class="md-header__title" data-md-component="header-title">
+        <div class="md-header__ellipsis">
+          <div class="md-header__topic">
+            <span class="md-ellipsis">主页</span>
+          </div>
         </div>
+      </div>
+      
+      <!-- 主题切换 -->
+      <button class="md-theme-toggle" onclick="toggleTheme()" title="切换主题" aria-label="切换主题">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+      
+      <!-- 搜索框 -->
+      <div class="md-search" style="margin-left: auto; margin-right: 1rem;">
+        <svg class="md-search__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+        <input type="text" class="md-search__input" id="search-input" placeholder="搜索文章..." autocomplete="off">
+        <div class="md-search__results" id="search-results"></div>
+      </div>
+      
+      <!-- GitHub 链接 -->
+      <div class="md-header__source">
+        <a href="https://github.com/Maplezh286" title="前往 GitHub" class="md-source" target="_blank" rel="noopener">
+          <div class="md-source__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/>
+            </svg>
+          </div>
+          <div class="md-source__repository">GitHub</div>
+        </a>
+      </div>
     </nav>
-
-    <!-- 主要内容 -->
-    <main class="main">
-        <div class="container">
-            <!-- 头部介绍 -->
-            <section class="hero">
-                <h1>欢迎来到我的博客</h1>
-                <p>这里记录着我的技术学习、项目经验和生活感悟</p>
-            </section>
-
-            <!-- 文章列表 -->
-            <section class="posts-section">
-                <h2>最新文章</h2>
-                <div id="posts-list" class="posts-list">
-                    <!-- 文章列表将由 JavaScript 动态生成 -->
-                </div>
-            </section>
+  </header>
+  
+  <!-- 主容器 -->
+  <div class="md-container" data-md-component="container">
+    <main class="md-main" data-md-component="main">
+      <div class="md-main__inner md-grid">
+        
+        <!-- 左侧边栏导航 -->
+        <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+          <div class="md-sidebar__scrollwrap">
+            <div class="md-sidebar__inner">
+              <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+                <div class="md-nav__title">文章分类</div>
+                
+                <ul class="md-nav__list" id="nav-tree">
+                  <!-- 树形导航将由 JavaScript 动态生成 -->
+                  <li class="loading">加载中...</li>
+                </ul>
+              </nav>
+            </div>
+          </div>
         </div>
+        
+        <!-- 内容区域 -->
+        <div class="md-content" data-md-component="content">
+          <article class="md-content__inner md-typeset">
+            <!-- 欢迎区域 -->
+            <h1>欢迎来到我的博客</h1>
+            <p>这里记录着我的技术学习、项目经验和生活感悟。</p>
+            
+            <hr>
+            
+            <!-- 最新文章 -->
+            <h2>最新文章</h2>
+            <div id="posts-list">
+              <div class="loading">正在加载文章...</div>
+            </div>
+          </article>
+        </div>
+        
+      </div>
     </main>
-
+    
     <!-- 页脚 -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 我的博客. 使用 GitHub Pages 部署 | <a href="https://github.com/Maplezh286">GitHub</a></p>
-        </div>
+    <footer class="md-footer">
+      <div class="md-footer__inner">
+        <p>&copy; 2024 我的博客. 使用 GitHub Pages 部署.</p>
+      </div>
     </footer>
-
-    <script src="assets/js/main.js"></script>
+  </div>
 </body>
 </html>

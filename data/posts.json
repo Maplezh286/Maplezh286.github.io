@@ -1,26 +1,29 @@
 [
-    {
-        "id": "hello-world",
-        "title": "你好，世界 - 我的第一篇博客",
-        "date": "2024-01-01",
-        "excerpt": "这是我的第一篇博客文章，欢迎来到我的博客！在这里我将分享我的技术学习心得和生活感悟。",
-        "tags": ["随笔", "介绍"],
-        "content": "../content/hello-world.md"
-    },
-    {
-        "id": "build-static-blog",
-        "title": "如何使用纯静态技术搭建个人博客",
-        "date": "2024-01-15",
-        "excerpt": "详细介绍如何使用 HTML、CSS 和 JavaScript 搭建一个无需后端的静态博客网站，并部署到 GitHub Pages。",
-        "tags": ["技术", "教程", "前端"],
-        "content": "../content/build-static-blog.md"
-    },
-    {
-        "id": "markdown-guide",
-        "title": "Markdown 写作指南",
-        "date": "2024-02-01",
-        "excerpt": "Markdown 是一种轻量级标记语言，非常适合写作。本文介绍常用的 Markdown 语法和写作技巧。",
-        "tags": ["写作", "Markdown", "工具"],
-        "content": "../content/markdown-guide.md"
-    }
+  {
+    "id": "hello-world",
+    "title": "你好，世界 - 我的第一篇博客",
+    "category": "随笔",
+    "date": "2024-01-01",
+    "excerpt": "这是我的第一篇博客文章，欢迎来到我的博客！在这里我将分享我的技术学习心得和生活感悟。",
+    "tags": ["随笔", "介绍"],
+    "content": "../content/hello-world.md"
+  },
+  {
+    "id": "build-static-blog",
+    "title": "如何使用纯静态技术搭建个人博客",
+    "category": "技术/教程",
+    "date": "2024-01-15",
+    "excerpt": "详细介绍如何使用 HTML、CSS 和 JavaScript 搭建一个无需后端的静态博客网站，并部署到 GitHub Pages。",
+    "tags": ["技术", "教程", "前端"],
+    "content": "../content/build-static-blog.md"
+  },
+  {
+    "id": "markdown-guide",
+    "title": "Markdown 写作指南",
+    "category": "写作",
+    "date": "2024-02-01",
+    "excerpt": "Markdown 是一种轻量级标记语言，非常适合写作。本文介绍常用的 Markdown 语法和写作技巧。",
+    "tags": ["写作", "Markdown", "工具"],
+    "content": "../content/markdown-guide.md"
+  }
 ]

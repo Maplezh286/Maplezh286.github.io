@@ -1,130 +1,456 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="如何使用纯静态技术搭建个人博客">
-    <title>如何使用纯静态技术搭建个人博客 - 我的博客</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <!-- 代码高亮 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <!-- Markdown 解析 -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="文章标题 - 我的博客">
+  <title>文章标题 - 我的博客</title>
+  
+  <!-- 样式 -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  
+  <!-- 脚本 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="../index.html" class="logo">我的博客</a>
-            <button class="nav-toggle" aria-label="切换导航">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-menu">
-                <li><a href="../index.html">首页</a></li>
-                <li><a href="../about.html">关于</a></li>
-            </ul>
+  <!-- 隐藏 Checkbox -->
+  <input class="md-toggle" type="checkbox" id="__drawer" autocomplete="off">
+  
+  <!-- 遮罩层 -->
+  <label class="md-overlay" for="__drawer"></label>
+  
+  <!-- 顶部导航栏 -->
+  <header class="md-header" data-md-component="header">
+    <nav class="md-header__inner" aria-label="页眉">
+      <!-- 汉堡菜单按钮 -->
+      <label class="md-header__button md-icon" for="__drawer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/>
+        </svg>
+      </label>
+      
+      <!-- Logo -->
+      <a href="../index.html" title="我的博客" class="md-header__button md-logo" data-md-component="logo">
+        <span>📝</span>
+        <span>我的博客</span>
+      </a>
+      
+      <!-- 页面标题 -->
+      <div class="md-header__title" data-md-component="header-title">
+        <div class="md-header__ellipsis">
+          <div class="md-header__topic">
+            <span class="md-ellipsis" id="header-topic">文章标题</span>
+          </div>
         </div>
+      </div>
+      
+      <!-- GitHub 链接 -->
+      <div class="md-header__source">
+        <a href="https://github.com/Maplezh286" title="前往 GitHub" class="md-source" target="_blank" rel="noopener">
+          <div class="md-source__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/>
+            </svg>
+          </div>
+          <div class="md-source__repository">GitHub</div>
+        </a>
+      </div>
     </nav>
-
-    <!-- 主要内容 -->
-    <main class="main">
-        <div class="container">
-            <article class="post-detail">
-                <!-- 文章头部 -->
-                <header class="post-header">
-                    <h1 id="post-title">如何使用纯静态技术搭建个人博客</h1>
-                    <div class="post-meta">
-                        <span id="post-date">2024年1月15日</span>
-                        <span id="post-tags" class="post-tags"><span class="tag">技术</span><span class="tag">教程</span><span class="tag">前端</span></span>
-                    </div>
-                </header>
-
-                <!-- 文章内容 -->
-                <div id="post-content" class="post-content"><h2>为什么选择静态博客？</h2>
-<p>静态博客有很多优点：</p>
-<ul>
-<li><strong>速度快</strong> - 无需数据库查询，直接加载 HTML</li>
-<li><strong>成本低</strong> - GitHub Pages 免费托管</li>
-<li><strong>安全性高</strong> - 没有后端，减少攻击面</li>
-<li><strong>易于维护</strong> - 只需管理静态文件</li>
-</ul>
-<h2>技术栈选择</h2>
-<p>我们使用以下技术：</p>
-<ul>
-<li><strong>HTML5</strong> - 页面结构</li>
-<li><strong>CSS3</strong> - 样式和响应式布局</li>
-<li><strong>JavaScript</strong> - 交互逻辑</li>
-<li><strong>Markdown</strong> - 文章内容格式</li>
-<li><strong>GitHub Pages</strong> - 免费部署平台</li>
-</ul>
-<h2>项目结构</h2>
-<pre><code class="hljs language-bash">my-blog/
-├── index.html              <span class="hljs-comment"># 首页</span>
-├── about.html              <span class="hljs-comment"># 关于页面</span>
-├── posts/                  <span class="hljs-comment"># 文章页面</span>
-│   ├── post-template.html  <span class="hljs-comment"># 文章详情模板</span>
-│   └── hello-world.html    <span class="hljs-comment"># 示例文章</span>
-├── assets/
-│   ├── css/
-│   │   └── style.css       <span class="hljs-comment"># 主样式</span>
-│   ├── js/
-│   │   └── main.js         <span class="hljs-comment"># 主逻辑</span>
-│   └── images/             <span class="hljs-comment"># 图片资源</span>
-└── data/
-    └── posts.json          <span class="hljs-comment"># 文章元数据</span>
-</code></pre>
-<h2>核心功能实现</h2>
-<h3>1. 文章列表渲染</h3>
-<p>从 JSON 文件加载文章数据，动态生成文章列表：</p>
-<pre><code class="hljs language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">loadPosts</span>(<span class="hljs-params"></span>) {
-    <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">'data/posts.json'</span>);
-    <span class="hljs-keyword">const</span> posts = <span class="hljs-keyword">await</span> response.<span class="hljs-title function_">json</span>();
-    <span class="hljs-title function_">renderPostsList</span>(posts);
-}
-</code></pre>
-<h3>2. Markdown 渲染</h3>
-<p>使用 marked.js 库解析 Markdown 内容：</p>
-<pre><code class="hljs language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">renderMarkdown</span>(<span class="hljs-params">markdown</span>) {
-    <span class="hljs-keyword">return</span> marked.<span class="hljs-title function_">parse</span>(markdown);
-}
-</code></pre>
-<h3>3. 代码高亮</h3>
-<p>使用 highlight.js 实现代码高亮：</p>
-<pre><code class="hljs language-javascript">document.<span class="hljs-title function_">querySelectorAll</span>(<span class="hljs-string">'pre code'</span>).<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">block</span>) =></span> {
-    hljs.<span class="hljs-title function_">highlightElement</span>(block);
-});
-</code></pre>
-<h2>部署到 GitHub Pages</h2>
-<ol>
-<li>创建 GitHub 仓库，命名为 <code>username.github.io</code></li>
-<li>将代码推送到仓库</li>
-<li>在仓库设置中启用 GitHub Pages</li>
-<li>访问 <code>https://username.github.io</code> 即可</li>
-</ol>
-<h2>总结</h2>
-<p>静态博客是一个简单但强大的方案，适合个人博客、文档站点等场景。通过本文介绍的技术，你可以快速搭建自己的博客网站。</p>
-<p>如果你有任何问题，欢迎在评论区留言讨论！</p>
-</div>
-
-                <!-- 文章导航 -->
-                <nav class="post-nav">
-                    <a href="../index.html" class="back-link">← 返回首页</a>
-                </nav>
-            </article>
+  </header>
+  
+  <!-- 主容器 -->
+  <div class="md-container" data-md-component="container">
+    <main class="md-main" data-md-component="main">
+      <div class="md-main__inner md-grid">
+        
+        <!-- 左侧边栏导航 -->
+        <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+          <div class="md-sidebar__scrollwrap">
+            <div class="md-sidebar__inner">
+              <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+                <div class="md-nav__title">文章分类</div>
+                
+                <ul class="md-nav__list" id="nav-tree">
+                  <li class="loading">加载中...</li>
+                </ul>
+              </nav>
+            </div>
+          </div>
         </div>
+        
+        <!-- 内容区域 -->
+        <div class="md-content" data-md-component="content">
+          <article class="md-content__inner md-typeset" id="article-content">
+            <!-- 编辑链接 -->
+            <div style="float: right; margin-bottom: 1rem;">
+              <a href="#" class="md-content__button" style="font-size: 0.875rem; color: var(--text-muted);">
+                <span>编辑此页</span>
+              </a>
+            </div>
+            
+            <!-- 文章头部 -->
+            <header class="post-header" style="margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
+              <h1 id="post-title">文章标题</h1>
+              <div style="display: flex; gap: 1rem; font-size: 0.875rem; color: var(--text-muted); margin-top: 0.75rem;">
+                <span id="post-date">2024年1月1日</span>
+                <span id="post-tags"></span>
+              </div>
+            </header>
+            
+            <!-- 文章内容 -->
+            <div id="post-content" class="post-content">
+              <div class="loading">正在加载文章内容...</div>
+            </div>
+            
+            <!-- 文章导航 (上一篇/下一篇) -->
+            <nav class="post-nav" id="post-navigation">
+              <!-- 将由 JavaScript 动态生成 -->
+            </nav>
+            
+            <!-- 评论区 -->
+            <div id="comments" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+              <h3 style="margin-bottom: 1.5rem;">💬 评论</h3>
+              <div class="giscus"></div>
+            </div>
+          </article>
+        </div>
+        
+        <!-- TOC 侧边栏 (右侧) -->
+        <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+          <div class="md-sidebar__scrollwrap">
+            <div class="md-sidebar__inner">
+              <nav class="md-nav md-nav--secondary" aria-label="目录">
+                <div class="md-nav__title">目录</div>
+                <ul class="md-nav__list" id="toc-list">
+                  <!-- 将由 JavaScript 动态生成 -->
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+        
+      </div>
     </main>
-
+    
     <!-- 页脚 -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 我的博客. 使用 GitHub Pages 部署 | <a href="https://github.com/Maplezh286">GitHub</a></p>
-        </div>
+    <footer class="md-footer">
+      <div class="md-footer__inner">
+        <p>&copy; 2024 我的博客. 使用 GitHub Pages 部署.</p>
+      </div>
     </footer>
-
-    <script src="../assets/js/main.js"></script>
-
+  </div>
+  
+  <!-- 脚本 -->
+  <script src="../assets/js/main.js"></script>
+  <script>
+    // 文章页面特有的逻辑
+    document.addEventListener('DOMContentLoaded', () => {
+      loadPostContent();
+    });
+    
+    async function loadPostContent() {
+      // 从 URL 获取文章 ID
+      const postId = window.location.pathname.split('/').pop().replace('.html', '');
+      
+      try {
+        // 等待文章数据加载完成
+        await new Promise(resolve => {
+          const checkData = () => {
+            if (postsData.length > 0) {
+              resolve();
+            } else {
+              setTimeout(checkData, 100);
+            }
+          };
+          checkData();
+        });
+        
+        const post = postsData.find(p => p.id === postId);
+        if (!post) {
+          throw new Error('文章不存在');
+        }
+        
+        // 更新页面信息
+        document.title = `${post.title} - 我的博客`;
+        document.getElementById('header-topic').textContent = post.title;
+        document.getElementById('post-title').textContent = post.title;
+        document.getElementById('post-date').textContent = formatDate(post.date);
+        document.getElementById('post-tags').innerHTML = post.tags.map(tag => `#${tag}`).join(' ');
+        
+        // 加载并渲染 Markdown 内容
+        const response = await fetch(post.content);
+        if (!response.ok) throw new Error('无法加载文章内容');
+        
+        const markdown = await response.text();
+        const html = marked.parse(markdown);
+        
+        document.getElementById('post-content').innerHTML = html;
+        
+        // 应用代码高亮
+        document.querySelectorAll('pre code').forEach(block => {
+          hljs.highlightElement(block);
+        });
+        
+        // 初始化代码复制按钮
+        initCodeCopy();
+        
+        // 生成目录 TOC
+        generateTOC();
+        
+        // 监听滚动高亮当前章节
+        initScrollSpy();
+        
+        // 高亮当前文章在侧边栏
+        highlightCurrentPost(postId);
+        
+        // 渲染上一篇/下一篇导航
+        renderPostNavigation(postId);
+        
+        // 初始化评论系统
+        initComments();
+        
+      } catch (error) {
+        console.error('加载文章失败:', error);
+        document.getElementById('post-content').innerHTML = `
+          <div style="color: #dc2626; padding: 2rem; text-align: center;">
+            加载文章失败: ${error.message}
+          </div>
+        `;
+      }
+    }
+    
+    /**
+     * 生成文章目录 TOC
+     */
+    function generateTOC() {
+      const tocList = document.getElementById('toc-list');
+      const article = document.getElementById('article-content');
+      if (!tocList || !article) return;
+      
+      // 提取 H2/H3 标题
+      const headings = article.querySelectorAll('h2, h3');
+      if (headings.length === 0) {
+        tocList.innerHTML = '<li class="md-nav__item"><span class="md-nav__link" style="color: var(--text-muted);">暂无目录</span></li>';
+        return;
+      }
+      
+      let html = '';
+      let lastLevel = 2;
+      
+      headings.forEach((heading, index) => {
+        // 添加 id 属性（如果没有）
+        if (!heading.id) {
+          heading.id = 'heading-' + index;
+        }
+        
+        const level = parseInt(heading.tagName.charAt(1));
+        const text = heading.textContent;
+        const id = heading.id;
+        
+        // 根据层级添加缩进类
+        const levelClass = level === 2 ? 'toc-level-2' : 'toc-level-3';
+        
+        html += `
+          <li class="md-nav__item ${levelClass}">
+            <a href="#${id}" class="md-nav__link" data-toc-id="${id}">
+              <span class="md-ellipsis">${escapeHtml(text)}</span>
+            </a>
+          </li>
+        `;
+      });
+      
+      tocList.innerHTML = html;
+      
+      // 绑定点击事件（平滑滚动）
+      tocList.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = link.getAttribute('href').slice(1);
+          const target = document.getElementById(targetId);
+          if (target) {
+            const offset = 80; // 导航栏高度 + 一些间距
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+            window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+          }
+        });
+      });
+    }
+    
+    /**
+     * 初始化滚动监听，高亮当前章节
+     */
+    function initScrollSpy() {
+      const article = document.getElementById('article-content');
+      if (!article) return;
+      
+      const headings = article.querySelectorAll('h2, h3');
+      const tocLinks = document.querySelectorAll('#toc-list .md-nav__link');
+      
+      if (headings.length === 0 || tocLinks.length === 0) return;
+      
+      const observerOptions = {
+        root: null,
+        rootMargin: '-80px 0px -60% 0px',
+        threshold: 0
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // 移除所有高亮
+            tocLinks.forEach(link => link.classList.remove('md-nav__link--active'));
+            
+            // 高亮当前章节
+            const id = entry.target.id;
+            const activeLink = document.querySelector(`#toc-list a[href="#${id}"]`);
+            if (activeLink) {
+              activeLink.classList.add('md-nav__link--active');
+            }
+          }
+        });
+      }, observerOptions);
+      
+      headings.forEach(heading => observer.observe(heading));
+    }
+    
+    /**
+     * 初始化 Giscus 评论系统
+     * 注意：需要先在 GitHub 上创建 discussion 仓库并配置 Giscus
+     */
+    function initComments() {
+      // 检测当前主题
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      const giscusTheme = currentTheme === 'dark' ? 'dark' : 'light';
+      
+      // Giscus 配置
+      // 请替换以下配置为你自己的 Giscus 设置
+      const giscusConfig = {
+        src: 'https://giscus.app/client.js',
+        'data-repo': 'Maplezh286/blog-comments',  // 替换为你的仓库
+        'data-repo-id': '',  // 替换为你的仓库 ID
+        'data-category': 'Announcements',
+        'data-category-id': '',  // 替换为你的分类 ID
+        'data-mapping': 'pathname',
+        'data-strict': '0',
+        'data-reactions-enabled': '1',
+        'data-emit-metadata': '0',
+        'data-input-position': 'top',
+        'data-theme': giscusTheme,
+        'data-lang': 'zh-CN',
+        crossorigin: 'anonymous',
+        async: true
+      };
+      
+      // 如果已存在 giscus 脚本，先移除
+      const existingScript = document.querySelector('script[src="https://giscus.app/client.js"]');
+      if (existingScript) {
+        existingScript.remove();
+      }
+      
+      // 创建并添加脚本
+      const script = document.createElement('script');
+      Object.entries(giscusConfig).forEach(([key, value]) => {
+        if (key === 'src' || key === 'async') {
+          script[key] = value;
+        } else {
+          script.setAttribute(key, value);
+        }
+      });
+      
+      document.getElementById('comments').appendChild(script);
+    }
+    
+    /**
+     * 切换评论主题
+     */
+    function updateCommentsTheme(theme) {
+      const iframe = document.querySelector('iframe.giscus-frame');
+      if (iframe) {
+        iframe.contentWindow.postMessage({
+          giscus: {
+            setConfig: {
+              theme: theme === 'dark' ? 'dark' : 'light'
+            }
+          }
+        }, 'https://giscus.app');
+      }
+    }
+    
+    /**
+     * 渲染上一篇/下一篇导航
+     * @param {string} currentPostId - 当前文章ID
+     */
+    function renderPostNavigation(currentPostId) {
+      const navContainer = document.getElementById('post-navigation');
+      if (!navContainer || postsData.length === 0) return;
+      
+      // 按日期排序
+      const sortedPosts = [...postsData].sort((a, b) => 
+        new Date(b.date) - new Date(a.date)
+      );
+      
+      const currentIndex = sortedPosts.findIndex(p => p.id === currentPostId);
+      if (currentIndex === -1) return;
+      
+      const prevPost = sortedPosts[currentIndex + 1]; // 更早的文章
+      const nextPost = sortedPosts[currentIndex - 1]; // 更新的文章
+      
+      let html = '';
+      
+      // 上一篇
+      if (prevPost) {
+        html += `
+          <a href="${prevPost.id}.html" class="post-nav__link post-nav__link--prev">
+            <svg class="post-nav__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            <div class="post-nav__content">
+              <span class="post-nav__label">上一篇</span>
+              <span class="post-nav__title">${escapeHtml(prevPost.title)}</span>
+            </div>
+          </a>
+        `;
+      } else {
+        html += `<div class="post-nav__link" style="visibility: hidden;"></div>';
+      }
+      
+      // 下一篇
+      if (nextPost) {
+        html += `
+          <a href="${nextPost.id}.html" class="post-nav__link post-nav__link--next">
+            <div class="post-nav__content">
+              <span class="post-nav__label">下一篇</span>
+              <span class="post-nav__title">${escapeHtml(nextPost.title)}</span>
+            </div>
+            <svg class="post-nav__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        `;
+      } else {
+        html += `<div class="post-nav__link" style="visibility: hidden;"></div>';
+      }
+      
+      navContainer.innerHTML = html;
+    }
+    
+    function highlightCurrentPost(postId) {
+      document.querySelectorAll('.md-nav__link').forEach(link => {
+        link.classList.remove('md-nav__link--active');
+        if (link.dataset.postId === postId) {
+          link.classList.add('md-nav__link--active');
+          // 展开父级分类
+          let parent = link.closest('.md-nav__item--nested');
+          while (parent) {
+            const checkbox = parent.querySelector('.md-nav__toggle');
+            if (checkbox) checkbox.checked = true;
+            parent = parent.parentElement.closest('.md-nav__item--nested');
+          }
+        }
+      });
+    }
+  </script>
 </body>
 </html>
