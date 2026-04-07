@@ -5,7 +5,7 @@
 
 // ==================== 配置 ====================
 const CONFIG = {
-  dataUrl: 'data/posts.json',
+  dataUrl: window.location.pathname.includes('/posts/') ? '../data/posts.json' : 'data/posts.json',
   storagePrefix: 'blog.',
   sidebarStorageKey: 'sidebar.expanded',
   themeStorageKey: 'theme',
