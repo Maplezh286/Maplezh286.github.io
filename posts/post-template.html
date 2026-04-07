@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="文章标题 - 我的博客">
+    <title>文章标题 - 我的博客</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- 代码高亮 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- Markdown 解析 -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">我的博客</a>
+            <button class="nav-toggle" aria-label="切换导航">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="../index.html">首页</a></li>
+                <li><a href="../about.html">关于</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="main">
+        <div class="container">
+            <article class="post-detail">
+                <!-- 文章头部 -->
+                <header class="post-header">
+                    <h1 id="post-title">文章标题</h1>
+                    <div class="post-meta">
+                        <span id="post-date">2024-01-01</span>
+                        <span id="post-tags" class="post-tags"></span>
+                    </div>
+                </header>
+
+                <!-- 文章内容 -->
+                <div id="post-content" class="post-content">
+                    <!-- 内容将由 JavaScript 动态渲染 -->
+                </div>
+
+                <!-- 文章导航 -->
+                <nav class="post-nav">
+                    <a href="../index.html" class="back-link">← 返回首页</a>
+                </nav>
+            </article>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 我的博客. 使用 GitHub Pages 部署.</p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>

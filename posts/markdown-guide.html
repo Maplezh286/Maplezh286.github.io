@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Markdown 写作指南">
+    <title>Markdown 写作指南 - 我的博客</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- 代码高亮 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- Markdown 解析 -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">我的博客</a>
+            <button class="nav-toggle" aria-label="切换导航">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="../index.html">首页</a></li>
+                <li><a href="../about.html">关于</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="main">
+        <div class="container">
+            <article class="post-detail">
+                <!-- 文章头部 -->
+                <header class="post-header">
+                    <h1 id="post-title">Markdown 写作指南</h1>
+                    <div class="post-meta">
+                        <span id="post-date">2024年2月1日</span>
+                        <span id="post-tags" class="post-tags"><span class="tag">写作</span><span class="tag">Markdown</span><span class="tag">工具</span></span>
+                    </div>
+                </header>
+
+                <!-- 文章内容 -->
+                <div id="post-content" class="post-content"><h2>什么是 Markdown？</h2>
+<p>Markdown 是一种轻量级标记语言，由约翰·格鲁伯（John Gruber）在 2004 年创建。它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的 HTML 文档。</p>
+<h2>基础语法</h2>
+<h3>标题</h3>
+<p>使用 <code>#</code> 符号表示标题，数量表示级别：</p>
+<pre><code class="hljs language-markdown"># 一级标题
+## 二级标题
+### 三级标题
+</code></pre>
+<h3>段落和换行</h3>
+<p>段落之间用空行分隔。要创建换行，在行尾添加两个空格。</p>
+<h3>强调</h3>
+<pre><code class="hljs language-markdown">*斜体* 或 _斜体_
+**粗体** 或 __粗体__
+***粗斜体*** 或 ___粗斜体___
+</code></pre>
+<h3>列表</h3>
+<p>无序列表使用 <code>-</code>、<code>+</code> 或 <code>*</code>：</p>
+<pre><code class="hljs language-markdown">- 项目 1
+- 项目 2
+  - 子项目 2.1
+  - 子项目 2.2
+</code></pre>
+<p>有序列表使用数字：</p>
+<pre><code class="hljs language-markdown">1. 第一步
+2. 第二步
+3. 第三步
+</code></pre>
+<h3>链接和图片</h3>
+<pre><code class="hljs language-markdown">[链接文字](https://example.com)
+![图片描述](image.jpg)
+</code></pre>
+<h3>代码</h3>
+<p>行内代码使用反引号：</p>
+<pre><code class="hljs language-markdown">这是 `code` 示例
+</code></pre>
+<p>代码块使用三个反引号：</p>
+<pre><code class="hljs language-markdown">```javascript
+function hello() {
+    console.log("Hello, World!");
+}
+```
+</code></pre>
+<h3>引用</h3>
+<pre><code class="hljs language-markdown">> 这是一段引用文字。
+> 可以有多行。
+</code></pre>
+<h3>分隔线</h3>
+<pre><code class="hljs language-markdown">---
+或
+***
+</code></pre>
+<h2>进阶技巧</h2>
+<h3>表格</h3>
+<pre><code class="hljs language-markdown">| 表头 1 | 表头 2 | 表头 3 |
+|--------|--------|--------|
+| 内容 1 | 内容 2 | 内容 3 |
+| 内容 4 | 内容 5 | 内容 6 |
+</code></pre>
+<h3>任务列表</h3>
+<pre><code class="hljs language-markdown">- [x] 已完成任务
+- [ ] 未完成任务
+- [ ] 另一个未完成任务
+</code></pre>
+<h3>脚注</h3>
+<pre><code class="hljs language-markdown">这是一个有脚注的句子[^1]。
+
+[^1]: 这是脚注的内容。
+</code></pre>
+<h2>写作建议</h2>
+<ol>
+<li><strong>保持简洁</strong> - Markdown 的精髓就是简洁，不要过度使用格式</li>
+<li><strong>使用标题层级</strong> - 合理使用标题层级，让文档结构清晰</li>
+<li><strong>列表优于长段落</strong> - 信息较多时，使用列表更易读</li>
+<li><strong>代码块标注语言</strong> - 这样能获得语法高亮</li>
+</ol>
+<h2>常用工具</h2>
+<ul>
+<li><strong>Typora</strong> - 所见即所得的 Markdown 编辑器</li>
+<li><strong>VS Code</strong> - 配合 Markdown 插件使用</li>
+<li><strong>Obsidian</strong> - 知识管理工具，支持 Markdown</li>
+<li><strong>Notion</strong> - 支持 Markdown 导入导出</li>
+</ul>
+<h2>总结</h2>
+<p>Markdown 是一种简单但功能强大的标记语言，掌握它能让你的写作更加高效。无论是写博客、文档还是笔记，Markdown 都是绝佳的选择。</p>
+<p>希望这篇指南对你有帮助！</p>
+</div>
+
+                <!-- 文章导航 -->
+                <nav class="post-nav">
+                    <a href="../index.html" class="back-link">← 返回首页</a>
+                </nav>
+            </article>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 我的博客. 使用 GitHub Pages 部署 | <a href="https://github.com/Maple-yi-z">GitHub</a></p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+
+</body>
+</html>

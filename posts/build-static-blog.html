@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="如何使用纯静态技术搭建个人博客">
+    <title>如何使用纯静态技术搭建个人博客 - 我的博客</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- 代码高亮 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- Markdown 解析 -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">我的博客</a>
+            <button class="nav-toggle" aria-label="切换导航">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="../index.html">首页</a></li>
+                <li><a href="../about.html">关于</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="main">
+        <div class="container">
+            <article class="post-detail">
+                <!-- 文章头部 -->
+                <header class="post-header">
+                    <h1 id="post-title">如何使用纯静态技术搭建个人博客</h1>
+                    <div class="post-meta">
+                        <span id="post-date">2024年1月15日</span>
+                        <span id="post-tags" class="post-tags"><span class="tag">技术</span><span class="tag">教程</span><span class="tag">前端</span></span>
+                    </div>
+                </header>
+
+                <!-- 文章内容 -->
+                <div id="post-content" class="post-content"><h2>为什么选择静态博客？</h2>
+<p>静态博客有很多优点：</p>
+<ul>
+<li><strong>速度快</strong> - 无需数据库查询，直接加载 HTML</li>
+<li><strong>成本低</strong> - GitHub Pages 免费托管</li>
+<li><strong>安全性高</strong> - 没有后端，减少攻击面</li>
+<li><strong>易于维护</strong> - 只需管理静态文件</li>
+</ul>
+<h2>技术栈选择</h2>
+<p>我们使用以下技术：</p>
+<ul>
+<li><strong>HTML5</strong> - 页面结构</li>
+<li><strong>CSS3</strong> - 样式和响应式布局</li>
+<li><strong>JavaScript</strong> - 交互逻辑</li>
+<li><strong>Markdown</strong> - 文章内容格式</li>
+<li><strong>GitHub Pages</strong> - 免费部署平台</li>
+</ul>
+<h2>项目结构</h2>
+<pre><code class="hljs language-bash">my-blog/
+├── index.html              <span class="hljs-comment"># 首页</span>
+├── about.html              <span class="hljs-comment"># 关于页面</span>
+├── posts/                  <span class="hljs-comment"># 文章页面</span>
+│   ├── post-template.html  <span class="hljs-comment"># 文章详情模板</span>
+│   └── hello-world.html    <span class="hljs-comment"># 示例文章</span>
+├── assets/
+│   ├── css/
+│   │   └── style.css       <span class="hljs-comment"># 主样式</span>
+│   ├── js/
+│   │   └── main.js         <span class="hljs-comment"># 主逻辑</span>
+│   └── images/             <span class="hljs-comment"># 图片资源</span>
+└── data/
+    └── posts.json          <span class="hljs-comment"># 文章元数据</span>
+</code></pre>
+<h2>核心功能实现</h2>
+<h3>1. 文章列表渲染</h3>
+<p>从 JSON 文件加载文章数据，动态生成文章列表：</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">loadPosts</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">'data/posts.json'</span>);
+    <span class="hljs-keyword">const</span> posts = <span class="hljs-keyword">await</span> response.<span class="hljs-title function_">json</span>();
+    <span class="hljs-title function_">renderPostsList</span>(posts);
+}
+</code></pre>
+<h3>2. Markdown 渲染</h3>
+<p>使用 marked.js 库解析 Markdown 内容：</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">renderMarkdown</span>(<span class="hljs-params">markdown</span>) {
+    <span class="hljs-keyword">return</span> marked.<span class="hljs-title function_">parse</span>(markdown);
+}
+</code></pre>
+<h3>3. 代码高亮</h3>
+<p>使用 highlight.js 实现代码高亮：</p>
+<pre><code class="hljs language-javascript">document.<span class="hljs-title function_">querySelectorAll</span>(<span class="hljs-string">'pre code'</span>).<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">block</span>) =></span> {
+    hljs.<span class="hljs-title function_">highlightElement</span>(block);
+});
+</code></pre>
+<h2>部署到 GitHub Pages</h2>
+<ol>
+<li>创建 GitHub 仓库，命名为 <code>username.github.io</code></li>
+<li>将代码推送到仓库</li>
+<li>在仓库设置中启用 GitHub Pages</li>
+<li>访问 <code>https://username.github.io</code> 即可</li>
+</ol>
+<h2>总结</h2>
+<p>静态博客是一个简单但强大的方案，适合个人博客、文档站点等场景。通过本文介绍的技术，你可以快速搭建自己的博客网站。</p>
+<p>如果你有任何问题，欢迎在评论区留言讨论！</p>
+</div>
+
+                <!-- 文章导航 -->
+                <nav class="post-nav">
+                    <a href="../index.html" class="back-link">← 返回首页</a>
+                </nav>
+            </article>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 我的博客. 使用 GitHub Pages 部署 | <a href="https://github.com/Maple-yi-z">GitHub</a></p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+
+</body>
+</html>
