@@ -4,7 +4,7 @@
 
 ## 预览
 
-访问 [https://Maplezh286.github.io](https://Maplezh286.github.io) 查看博客（请将 `Maple-yi-z` 替换为你的 GitHub 用户名）
+访问 [https://Maplezh286.github.io](https://Maplezh286.github.io) 查看博客（请将 `Maplezh286` 替换为你的 GitHub 用户名）
 
 ## 功能特点
 
@@ -92,7 +92,7 @@ python -m http.server 8000
 
 1. **创建 GitHub 仓库**：
    - 登录 GitHub
-   - 创建新仓库，命名为 `Maplezh286.github.io`（将 `Maple-yi-z` 替换为你的 GitHub 用户名）
+   - 创建新仓库，命名为 `Maplezh286.github.io`（将 `Maplezh286` 替换为你的 GitHub 用户名）
 
 2. **推送代码**：
 
@@ -104,7 +104,7 @@ git add .
 git commit -m "Initial commit"
 
 # 添加远程仓库（替换为你的仓库地址）
-git remote add origin https://github.com/Maple-yi-z/Maplezh286.github.io.git
+git remote add origin https://github.com/Maplezh286/Maplezh286.github.io.git
 
 # 推送代码
 git push -u origin main
