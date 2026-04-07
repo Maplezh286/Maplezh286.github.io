@@ -5,7 +5,7 @@
 
 // ==================== 配置 ====================
 const CONFIG = {
-  dataUrl: window.location.pathname.includes('/posts/') ? '../data/posts.json' : 'data/posts.json',
+  dataUrl: 'data/posts.json',
   storagePrefix: 'blog.',
   sidebarStorageKey: 'sidebar.expanded',
   themeStorageKey: 'theme',
@@ -169,41 +169,50 @@ function buildCategoryTree(posts) {
   const tree = {};
   
   posts.forEach(post => {
-    // 处理没有分类的情况
+    // 获取分类，默认为"未分类"
     const categoryStr = post.category || '未分类';
     const categories = categoryStr.split('/').filter(Boolean);
     
-    // 如果没有分类，创建一个"未分类"节点
-    if (categories.length === 0) {
-      categories.push('未分类');
-    }
+    // 如果分割后为空，使用"未分类"
+    const categoryList = categories.length > 0 ? categories : ['未分类'];
     
     let current = tree;
+    let currentPath = '';
     
     // 构建分类层级
-    categories.forEach((cat, index) => {
+    categoryList.forEach((cat, index) => {
+      currentPath = currentPath ? `${currentPath}/${cat}` : cat;
+      
       if (!current[cat]) {
         current[cat] = {
           name: cat,
           children: {},
           posts: [],
-          level: index
+          level: index,
+          path: currentPath
         };
       }
       current = current[cat].children;
     });
     
-    // 在最后一级添加文章
+    // 回到树根部，找到对应的分类节点
     current = tree;
-    categories.forEach(cat => {
-      current = current[cat];
+    categoryList.forEach(cat => {
+      if (current[cat]) {
+        current = current[cat];
+      }
     });
     
-    // 确保节点存在且有 posts 数组
+    // 添加文章到该分类
     if (current && current.posts) {
       current.posts.push(post);
     }
   });
+  
+  // 清理：如果只有"未分类"且没有文章，移除它
+  if (tree['未分类'] && tree['未分类'].posts.length === 0 && Object.keys(tree).length > 1) {
+    delete tree['未分类'];
+  }
   
   return tree;
 }

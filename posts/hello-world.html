@@ -179,9 +179,12 @@
         document.getElementById('post-date').textContent = formatDate(post.date);
         document.getElementById('post-tags').innerHTML = post.tags.map(tag => `#${tag}`).join(' ');
         
+        // 修正路径：post.content 已经是 ../content/xxx.md 格式
+        const contentPath = post.content;
+        
         // 加载并渲染 Markdown 内容
-        const response = await fetch(post.content);
-        if (!response.ok) throw new Error('无法加载文章内容');
+        const response = await fetch(contentPath);
+        if (!response.ok) throw new Error('无法加载文章内容: ' + contentPath);
         
         const markdown = await response.text();
         const html = marked.parse(markdown);
