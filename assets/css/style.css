@@ -753,6 +753,29 @@ button {
   width: 200px;
   border-left: 1px solid var(--border-color);
   border-right: none;
+  /* 粘性定位：滚动时固定在顶部 */
+  position: sticky;
+  top: var(--nav-height);
+  height: calc(100vh - var(--nav-height));
+  overflow-y: auto;
+}
+
+/* 隐藏滚动条但保持可滚动 */
+.md-sidebar--secondary::-webkit-scrollbar {
+  width: 4px;
+}
+
+.md-sidebar--secondary::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.md-sidebar--secondary::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 2px;
+}
+
+.md-sidebar--secondary:hover::-webkit-scrollbar-thumb {
+  background-color: var(--text-light);
 }
 
 .md-sidebar--secondary .md-nav__title {
@@ -762,6 +785,16 @@ button {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--text-muted);
+  /* 标题也保持固定 */
+  position: sticky;
+  top: 0;
+  background-color: var(--bg-secondary);
+  z-index: 1;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.md-sidebar--secondary .md-sidebar__scrollwrap {
+  padding: 0.5rem 0;
 }
 
 .md-sidebar--secondary .md-nav__link {
@@ -798,6 +831,8 @@ button {
   .md-main__inner {
     display: grid;
     grid-template-columns: var(--sidebar-width) 1fr 200px;
+    /* 让 grid 项可以 sticky */
+    align-items: start;
   }
 }
 
