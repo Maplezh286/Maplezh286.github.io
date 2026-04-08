@@ -171,7 +171,7 @@
   </div>
   
   <!-- 脚本 -->
-  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/main.js?v=6"></script>
   <script>
     // 文章页面特有的逻辑
     document.addEventListener('DOMContentLoaded', () => {
@@ -183,11 +183,18 @@
       const postId = window.location.pathname.split('/').pop().replace('.html', '');
       
       try {
-        // 等待文章数据加载完成
-        await new Promise(resolve => {
+        // 等待文章数据加载完成（最多等待10秒）
+        await new Promise((resolve, reject) => {
+          let attempts = 0;
+          const maxAttempts = 100; // 100 * 100ms = 10秒
+          
           const checkData = () => {
-            if (postsData.length > 0) {
+            attempts++;
+            // 检查 postsData 是否存在且有数据
+            if (typeof postsData !== 'undefined' && postsData.length > 0) {
               resolve();
+            } else if (attempts >= maxAttempts) {
+              reject(new Error('等待文章数据超时，请刷新页面重试'));
             } else {
               setTimeout(checkData, 100);
             }
@@ -444,7 +451,7 @@
           </a>
         `;
       } else {
-        html += `<div class="post-nav__link" style="visibility: hidden;"></div>';
+        html += `<div class="post-nav__link" style="visibility: hidden;"></div>`;
       }
       
       // 下一篇
@@ -461,7 +468,7 @@
           </a>
         `;
       } else {
-        html += `<div class="post-nav__link" style="visibility: hidden;"></div>';
+        html += `<div class="post-nav__link" style="visibility: hidden;"></div>`;
       }
       
       navContainer.innerHTML = html;

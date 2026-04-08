@@ -11,6 +11,17 @@ const CONFIG = {
   themeStorageKey: 'theme',
 };
 
+/**
+ * 获取文章链接路径前缀
+ * 根据当前页面位置决定是相对路径还是绝对路径
+ * @returns {string} 路径前缀
+ */
+function getPostLinkPrefix() {
+  // 如果当前在 /posts/ 目录下，使用相对路径（当前目录）
+  // 否则使用 posts/ 子目录
+  return window.location.pathname.includes('/posts/') ? '' : 'posts/';
+}
+
 // ==================== 状态管理 ====================
 let postsData = [];
 let categoryTree = {};
@@ -293,10 +304,11 @@ function renderTreeNodes(tree, parentPath = '') {
       html += renderTreeNodes(node.children, fullPath);
       
       // 渲染文章列表
+      const postLinkPrefix = getPostLinkPrefix();
       node.posts.forEach(post => {
         html += `
           <li class="md-nav__item">
-            <a href="posts/${escapeHtml(post.id)}.html" class="md-nav__link" data-post-id="${escapeHtml(post.id)}">
+            <a href="${postLinkPrefix}${escapeHtml(post.id)}.html" class="md-nav__link" data-post-id="${escapeHtml(post.id)}">
               <span class="md-ellipsis">${escapeHtml(post.title)}</span>
             </a>
           </li>
@@ -390,10 +402,11 @@ function renderPostsList(posts = null) {
     return;
   }
   
+  const postLinkPrefix = getPostLinkPrefix();
   const html = sortedPosts.map(post => `
     <article class="post-card" style="margin-bottom: 2rem; padding: 1.5rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
       <h3 style="margin-bottom: 0.75rem;">
-        <a href="posts/${escapeHtml(post.id)}.html">${escapeHtml(post.title)}</a>
+        <a href="${postLinkPrefix}${escapeHtml(post.id)}.html">${escapeHtml(post.title)}</a>
       </h3>
       <p style="color: var(--text-muted); margin-bottom: 1rem; line-height: 1.6;">
         ${escapeHtml(post.excerpt)}
@@ -664,8 +677,9 @@ function initSearch() {
       return;
     }
     
+    const postLinkPrefix = getPostLinkPrefix();
     const html = results.map(result => `
-      <a href="posts/${escapeHtml(result.id)}.html" class="md-search__result">
+      <a href="${postLinkPrefix}${escapeHtml(result.id)}.html" class="md-search__result">
         <div class="md-search__result-title">${highlightText(result.title, query)}</div>
         <div class="md-search__result-excerpt">${highlightText(result.excerpt, query)}</div>
       </a>
