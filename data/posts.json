@@ -11,7 +11,7 @@
   {
     "id": "build-static-blog",
     "title": "如何使用纯静态技术搭建个人博客",
-    "category": "课程笔记/技术教程",
+    "category": "技术教程",
     "date": "2024-01-15",
     "excerpt": "详细介绍如何使用 HTML、CSS 和 JavaScript 搭建一个无需后端的静态博客网站，并部署到 GitHub Pages。",
     "tags": ["技术", "教程", "前端"],
@@ -20,7 +20,7 @@
   {
     "id": "markdown-guide",
     "title": "Markdown 写作指南",
-    "category": "课程笔记/写作",
+    "category": "课程笔记",
     "date": "2024-02-01",
     "excerpt": "Markdown 是一种轻量级标记语言，非常适合写作。本文介绍常用的 Markdown 语法和写作技巧。",
     "tags": ["写作", "Markdown", "工具"],
