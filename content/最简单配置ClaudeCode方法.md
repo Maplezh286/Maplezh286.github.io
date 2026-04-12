@@ -139,7 +139,7 @@ claude
 ![Claude Code 启动界面2](../assets/images/claude_hi_2.png)
 
 接下来讨论一下它的能力：
-AI给我的计较是：
+AI给我的比较是：
 ### 最终评分对比
 
 | 维度    | 智谱方案   | 原装方案  | 胜出方      |
