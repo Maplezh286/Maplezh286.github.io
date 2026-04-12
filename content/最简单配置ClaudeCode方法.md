@@ -134,6 +134,10 @@ claude
 
 好了，重启power shell，输入`wsl`，输入`claude`。你会看到云朵图案。输入`hi`，如果它也跟你问好，那么恭喜你，成功在国内搭建起了最有性价比，最简单的Claude Code。
 
+![Claude Code 启动界面1](../assets/images/claude_hi_1.png)
+
+![Claude Code 启动界面2](../assets/images/claude_hi_2.png)
+
 接下来讨论一下它的能力：
 AI给我的计较是：
 ### 最终评分对比
