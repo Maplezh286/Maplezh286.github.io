@@ -121,7 +121,34 @@ const Storage = {
 // ==================== 初始化 ====================
 document.addEventListener('DOMContentLoaded', () => {
   initApp();
+  initMobileSidebar();
 });
+
+/**
+ * 初始化移动端侧边栏控制
+ * 由于 DOM 结构限制，使用 JS 控制 body class 来显示/隐藏侧边栏
+ */
+function initMobileSidebar() {
+  const drawerCheckbox = document.getElementById('__drawer');
+  if (!drawerCheckbox) return;
+
+  // 监听 checkbox 变化
+  drawerCheckbox.addEventListener('change', (e) => {
+    if (e.target.checked) {
+      document.body.classList.add('sidebar-open');
+    } else {
+      document.body.classList.remove('sidebar-open');
+    }
+  });
+
+  // 点击遮罩层关闭时，确保移除 class
+  const overlay = document.querySelector('.md-overlay');
+  if (overlay) {
+    overlay.addEventListener('click', () => {
+      document.body.classList.remove('sidebar-open');
+    });
+  }
+}
 
 /**
  * 初始化应用

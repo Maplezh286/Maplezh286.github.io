@@ -960,11 +960,11 @@ button {
     box-shadow: var(--shadow-lg);
   }
   
-  /* Checkbox 选中时显示侧边栏 */
-  .md-toggle:checked ~ .md-sidebar--primary {
+  /* 通过 body class 控制侧边栏显示（由 JS 控制） */
+  body.sidebar-open .md-sidebar--primary {
     transform: translateX(0);
   }
-  
+
   /* 显示遮罩层 */
   .md-toggle:checked ~ .md-overlay {
     display: block;
