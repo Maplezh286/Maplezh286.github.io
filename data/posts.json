@@ -16,5 +16,23 @@
     "excerpt": "Markdown 是一种轻量级标记语言，非常适合写作。本文介绍常用的 Markdown 语法和写作技巧，帮助你快速上手。",
     "tags": ["写作", "Markdown", "工具"],
     "content": "../content/markdown-guide.md"
+  },
+  {
+    "id": "software-dev-experience",
+    "title": "软件开发经验汇总",
+    "category": "随笔",
+    "date": "2026-04-12",
+    "excerpt": "总结寒假软件开发项目经验，包括 vibe coding 技巧、提示词编写方法和团队协作心得。",
+    "tags": ["软件开发", "AI", "经验"],
+    "content": "../content/软件开发经验汇总.md"
+  },
+  {
+    "id": "claude-code-setup",
+    "title": "最简单配置ClaudeCode方法",
+    "category": "技术教程",
+    "date": "2026-04-12",
+    "excerpt": "使用智谱 GLM 大模型+Claude Code 框架，在国内合法合规使用'性价比版'Claude Code 的完整教程。",
+    "tags": ["Claude Code", "AI工具", "教程"],
+    "content": "../content/最简单配置ClaudeCode方法.md"
   }
 ]
