@@ -11,7 +11,7 @@
 
 ### 一、安装WSL
 
-WSL是windows的Linux子系统，让Claude Code跑在Linux上方便管理服务器。
+WSL是windows的Linux子系统，让Claude Code跑在Linux上方便管理服务器和项目。
 
 ### 操作步骤
 
