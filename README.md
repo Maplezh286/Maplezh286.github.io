@@ -4,7 +4,9 @@
 
 ## 预览
 
-访问 [https://Maplezh286.github.io](https://Maplezh286.github.io) 查看博客
+访问 [https://yifengz17.github.io](https://yifengz17.github.io) 查看博客
+
+> 注意：需要将 GitHub 仓库重命名为 `YiFengZ17.github.io`，根域名站点才能生效。在重命名之前，可临时通过 `https://yifengz17.github.io/Maplezh286.github.io/` 访问。
 
 ## 功能特点
 
@@ -38,13 +40,15 @@ my-blog/
 │   ├── ai-learning-tips.md
 │   ├── markdown-guide.md
 │   ├── 最简单配置ClaudeCode方法.md
-│   └── 软件开发经验汇总.md
+│   ├── 软件开发经验汇总.md
+│   └── 做事的三个层次-时间管理-心.md
 ├── posts/                  # 文章 HTML 页面
 │   ├── post-template.html  # 文章模板
 │   ├── ai-learning-tips.html
 │   ├── markdown-guide.html
 │   ├── claude-code-setup.html
-│   └── software-dev-experience.html
+│   ├── software-dev-experience.html
+│   └── 做事的三个层次-时间管理-心.html
 ├── assets/
 │   ├── css/
 │   │   └── style.css       # 主样式文件
@@ -104,14 +108,14 @@ python publish.py my-article "我的新文章" 技术/教程 Python 爬虫
 
 ## 部署到 GitHub Pages
 
-1. 创建仓库 `username.github.io`
+1. 创建仓库 `YiFengZ17.github.io`
 2. 推送代码：
 
 ```bash
 git init
 git add .
 git commit -m "Initial commit"
-git remote add origin https://github.com/username/username.github.io.git
+git remote add origin https://github.com/YiFengZ17/YiFengZ17.github.io.git
 git push -u origin main
 ```
 
