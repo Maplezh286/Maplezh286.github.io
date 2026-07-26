@@ -173,7 +173,12 @@
     
     async function loadPostContent() {
       // 从 URL 获取文章 ID
-      const postId = window.location.pathname.split('/').pop().replace('.html', '');
+      let postId = window.location.pathname.split('/').pop().replace(/\.html$/, '');
+      try {
+        postId = decodeURIComponent(postId);
+      } catch (e) {
+        // 保持原样
+      }
       
       try {
         // 等待文章数据加载完成（最多等待10秒）
