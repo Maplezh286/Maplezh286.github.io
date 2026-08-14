@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PostList from '../../components/PostList.astro';
+import { publishedPosts } from '../../lib/blog';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('posts')).filter((post) => !post.data.draft);
+  const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
+  return tags.map((tag) => ({ params: { tag }, props: { tag } }));
+}
+
+const { tag } = Astro.props;
+const posts = publishedPosts(await getCollection('posts')).filter((post) => post.data.tags.includes(tag));
+---
+
+<BaseLayout title={`#${tag}`} description={`标记为 ${tag} 的文章。`}>
+  <div class="page-shell page-content">
+    <Breadcrumbs items={[{ label: `#${tag}` }]} />
+    <header class="page-title">
+      <p class="eyebrow">TAG</p>
+      <h1>#{tag}</h1>
+      <p>{posts.length} 篇文章</p>
+    </header>
+    <PostList posts={posts} />
+  </div>
+</BaseLayout>

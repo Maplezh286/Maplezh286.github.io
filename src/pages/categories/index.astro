@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CategoryTree from '../../components/CategoryTree.astro';
+import { publishedPosts } from '../../lib/blog';
+
+const posts = publishedPosts(await getCollection('posts'));
+---
+
+<BaseLayout title="文章分类" description="按照主题与层级浏览 Maple 的文章。">
+  <div class="page-shell page-content narrow-page">
+    <Breadcrumbs items={[{ label: '分类' }]} />
+    <header class="page-title">
+      <p class="eyebrow">LIBRARY</p>
+      <h1>文章分类</h1>
+      <p>内容不是散落的标签，而是一棵可以逐层展开的目录树。</p>
+    </header>
+    <div class="category-page-tree"><CategoryTree posts={posts} /></div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,51 @@
+---
+import type { Post } from '../lib/blog';
+import { categoryTitle, categoryUrl, postUrl } from '../lib/blog';
+
+interface Props { posts: Post[]; showPosts?: boolean }
+const { posts, showPosts = true } = Astro.props;
+
+type Node = { slug: string; children: Map<string, Node>; posts: Post[] };
+const root = new Map<string, Node>();
+
+for (const post of posts) {
+  let branch = root;
+  post.data.category.forEach((slug, index) => {
+    if (!branch.has(slug)) branch.set(slug, { slug, children: new Map(), posts: [] });
+    const node = branch.get(slug)!;
+    if (index === post.data.category.length - 1) node.posts.push(post);
+    branch = node.children;
+  });
+}
+
+const countPosts = (node: Node): number => node.posts.length + [...node.children.values()].reduce((sum, child) => sum + countPosts(child), 0);
+---
+
+<div class="category-tree">
+  {Array.from(root.values()).map((top) => (
+    <details open>
+      <summary>
+        <span class="folder-icon" aria-hidden="true"></span>
+        <a href={categoryUrl([top.slug])}>{categoryTitle(top.slug)}</a>
+        <span class="tree-count">{countPosts(top)}</span>
+      </summary>
+      <div class="tree-children">
+        {Array.from(top.children.values()).map((child) => (
+          <details open>
+            <summary>
+              <span class="folder-icon" aria-hidden="true"></span>
+              <a href={categoryUrl([top.slug, child.slug])}>{categoryTitle(child.slug)}</a>
+              <span class="tree-count">{countPosts(child)}</span>
+            </summary>
+            {showPosts && (
+              <ul>
+                {child.posts.map((post) => <li><a href={postUrl(post)}>{post.data.title}</a></li>)}
+              </ul>
+            )}
+          </details>
+        ))}
+        {showPosts && top.posts.length > 0 && <ul>{top.posts.map((post) => <li><a href={postUrl(post)}>{post.data.title}</a></li>)}</ul>}
+      </div>
+    </details>
+  ))}
+</div>

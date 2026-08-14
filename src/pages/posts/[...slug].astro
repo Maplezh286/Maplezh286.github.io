@@ -1,0 +1,77 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { categoryTitle, categoryUrl, formatDate, postSlug, readingTime } from '../../lib/blog';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('posts')).filter((post) => !post.data.draft);
+  return posts.map((post) => ({ params: { slug: postSlug(post) }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const crumbs = post.data.category.map((slug: string, index: number) => ({
+  label: categoryTitle(slug),
+  href: categoryUrl(post.data.category.slice(0, index + 1)),
+}));
+---
+
+<BaseLayout title={post.data.title} description={post.data.description} article>
+  <article class="article-shell">
+    <header class="article-header">
+      <Breadcrumbs items={[...crumbs, { label: post.data.title }]} />
+      <p class="eyebrow">{post.data.category.map(categoryTitle).join(' / ')}</p>
+      <h1>{post.data.title}</h1>
+      <p class="article-description">{post.data.description}</p>
+      <div class="article-meta">
+        <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
+        <span aria-hidden="true">·</span>
+        <span>{readingTime(post.body)} 分钟阅读</span>
+      </div>
+    </header>
+
+    <div class="article-grid">
+      <div class="prose">
+        <Content />
+        <footer class="article-footer">
+          <div class="tag-list">
+            {post.data.tags.map((tag: string) => <a href={`/tags/${encodeURIComponent(tag)}/`}>#{tag}</a>)}
+          </div>
+          <a class="back-link" href="/posts/">← 返回全部文章</a>
+        </footer>
+        <section class="comments" aria-labelledby="comments-heading">
+          <h2 id="comments-heading">评论</h2>
+          <script
+            is:inline
+            src="https://giscus.app/client.js"
+            data-repo="YiFengZ17/YiFengZ17.github.io"
+            data-repo-id="R_kgDOR7qc7w"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOR7qc784C6cPL"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="preferred_color_scheme"
+            data-lang="zh-CN"
+            crossorigin="anonymous"
+            async>
+          </script>
+        </section>
+      </div>
+
+      {headings.length > 0 && (
+        <aside class="toc" aria-label="文章目录">
+          <p>本文目录</p>
+          <nav>
+            {headings.filter((heading) => heading.depth <= 3).map((heading) => (
+              <a class:list={[`toc-level-${heading.depth}`]} href={`#${heading.slug}`}>{heading.text}</a>
+            ))}
+          </nav>
+        </aside>
+      )}
+    </div>
+  </article>
+</BaseLayout>

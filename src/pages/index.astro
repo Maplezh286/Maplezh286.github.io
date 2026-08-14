@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostList from '../components/PostList.astro';
+import CategoryTree from '../components/CategoryTree.astro';
+import { publishedPosts } from '../lib/blog';
+
+const posts = publishedPosts(await getCollection('posts'));
+const featured = posts.filter((post) => post.data.featured).slice(0, 3);
+---
+
+<BaseLayout>
+  <section class="hero page-shell">
+    <p class="eyebrow">MAPLE'S NOTES · 2026</p>
+    <h1>你好，我是 Maple。<br /><span>在这里记录技术，也整理生活。</span></h1>
+    <p class="hero-copy">关于软件开发、AI 学习，以及那些值得慢下来想一想的事。</p>
+    <div class="hero-actions">
+      <a class="button primary" href="/posts/">开始阅读</a>
+      <a class="button quiet" href="/about/">关于我 <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <div class="page-shell home-grid">
+    <section class="home-main" aria-labelledby="featured-heading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">FEATURED</p>
+          <h2 id="featured-heading">精选文章</h2>
+        </div>
+        <a href="/posts/">查看全部 <span aria-hidden="true">→</span></a>
+      </div>
+      <PostList posts={featured} />
+    </section>
+
+    <aside class="home-sidebar" aria-labelledby="browse-heading">
+      <p class="eyebrow">LIBRARY</p>
+      <h2 id="browse-heading">按目录浏览</h2>
+      <p class="aside-copy">文章按照主题逐级归档，像打开文件夹一样找到你想读的内容。</p>
+      <CategoryTree posts={posts} />
+    </aside>
+  </div>
+
+  <section class="statement">
+    <div class="page-shell statement-inner">
+      <p>“写作不是为了给生活一个答案，而是让那些模糊的想法慢慢变得清楚。”</p>
+    </div>
+  </section>
+</BaseLayout>

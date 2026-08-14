@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PostList from '../../components/PostList.astro';
+import { CATEGORY_META, categoryTitle, categoryUrl, publishedPosts } from '../../lib/blog';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('posts')).filter((post) => !post.data.draft);
+  const paths = new Set<string>();
+  posts.forEach((post) => post.data.category.forEach((_, index) => paths.add(post.data.category.slice(0, index + 1).join('/'))));
+  return [...paths].map((path) => ({ params: { path }, props: { parts: path.split('/') } }));
+}
+
+const { parts } = Astro.props;
+const allPosts = publishedPosts(await getCollection('posts'));
+const posts = allPosts.filter((post) => parts.every((part: string, index: number) => post.data.category[index] === part));
+const current = parts.at(-1) as string;
+const title = categoryTitle(current);
+const crumbs = parts.map((part: string, index: number) => ({
+  label: categoryTitle(part),
+  href: index === parts.length - 1 ? undefined : categoryUrl(parts.slice(0, index + 1)),
+}));
+---
+
+<BaseLayout title={title} description={CATEGORY_META[current]?.description ?? `${title}分类文章`}>
+  <div class="page-shell page-content">
+    <Breadcrumbs items={[{ label: '分类', href: '/categories/' }, ...crumbs]} />
+    <header class="page-title">
+      <p class="eyebrow">CATEGORY · {parts.map(categoryTitle).join(' / ')}</p>
+      <h1>{title}</h1>
+      <p>{CATEGORY_META[current]?.description} · {posts.length} 篇文章</p>
+    </header>
+    <PostList posts={posts} />
+  </div>
+</BaseLayout>

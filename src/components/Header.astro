@@ -1,0 +1,47 @@
+---
+const currentPath = Astro.url.pathname;
+const links = [
+  { href: '/', label: '首页' },
+  { href: '/posts/', label: '文章' },
+  { href: '/categories/', label: '分类' },
+  { href: '/about/', label: '关于' },
+];
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="/" aria-label="Maple Blog 首页">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span>Maple</span>
+    </a>
+
+    <nav class="main-nav" aria-label="主导航">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          aria-current={currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)) ? 'page' : undefined}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="header-actions">
+      <a class="icon-button search-button" href="/search/" aria-label="搜索文章" title="搜索">⌕</a>
+      <button class="icon-button theme-toggle" type="button" aria-label="切换深浅主题" title="切换主题">
+        <span class="theme-icon" aria-hidden="true">◐</span>
+      </button>
+      <button class="icon-button menu-toggle" type="button" aria-label="打开导航" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  const menuButton = document.querySelector('.menu-toggle');
+  const mainNav = document.querySelector('.main-nav');
+  menuButton?.addEventListener('click', () => {
+    const open = mainNav?.classList.toggle('is-open') ?? false;
+    menuButton.setAttribute('aria-expanded', String(open));
+    menuButton.setAttribute('aria-label', open ? '关闭导航' : '打开导航');
+  });
+</script>

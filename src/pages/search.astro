@@ -1,0 +1,62 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { categoryTitle, formatDate, postUrl, publishedPosts } from '../lib/blog';
+
+const posts = publishedPosts(await getCollection('posts'));
+const index = posts.map((post) => ({
+  title: post.data.title,
+  description: post.data.description,
+  category: post.data.category.map(categoryTitle).join(' / '),
+  tags: post.data.tags,
+  date: formatDate(post.data.publishedAt),
+  url: postUrl(post),
+  text: `${post.data.title} ${post.data.description} ${post.data.category.map(categoryTitle).join(' ')} ${post.data.tags.join(' ')}`.toLowerCase(),
+}));
+---
+
+<BaseLayout title="搜索" description="搜索 Maple Blog 的文章。">
+  <div class="page-shell page-content search-page">
+    <Breadcrumbs items={[{ label: '搜索' }]} />
+    <header class="page-title">
+      <p class="eyebrow">SEARCH</p>
+      <h1>搜索文章</h1>
+    </header>
+    <label class="search-box">
+      <span aria-hidden="true">⌕</span>
+      <input id="search-input" type="search" placeholder="输入标题、分类或标签…" autocomplete="off" autofocus />
+    </label>
+    <p class="search-status" id="search-status">输入关键词开始搜索。</p>
+    <div class="search-results" id="search-results"></div>
+  </div>
+  <script is:inline type="application/json" id="search-index" set:html={JSON.stringify(index).replace(/</g, '\u003c')} />
+  <script>
+    const input = document.querySelector<HTMLInputElement>('#search-input');
+    const results = document.querySelector<HTMLDivElement>('#search-results');
+    const status = document.querySelector<HTMLParagraphElement>('#search-status');
+    const data = JSON.parse(document.querySelector('#search-index')?.textContent ?? '[]');
+
+    const escapeHtml = (value: string) => value.replace(/[&<>'"]/g, (character) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;',
+    })[character] ?? character);
+
+    input?.addEventListener('input', () => {
+      const terms = input.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+      if (!terms.length) {
+        results!.innerHTML = '';
+        status!.textContent = '输入关键词开始搜索。';
+        return;
+      }
+      const matches = data.filter((post: any) => terms.every((term) => post.text.includes(term)));
+      status!.textContent = matches.length ? `找到 ${matches.length} 篇文章` : '没有找到匹配的文章。';
+      results!.innerHTML = matches.map((post: any) => `
+        <article class="search-result">
+          <p>${escapeHtml(post.category)} · ${escapeHtml(post.date)}</p>
+          <h2><a href="${escapeHtml(post.url)}">${escapeHtml(post.title)}</a></h2>
+          <div>${escapeHtml(post.description)}</div>
+        </article>
+      `).join('');
+    });
+  </script>
+</BaseLayout>

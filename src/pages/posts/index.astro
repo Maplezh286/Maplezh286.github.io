@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PostList from '../../components/PostList.astro';
+import { publishedPosts } from '../../lib/blog';
+
+const posts = publishedPosts(await getCollection('posts'));
+---
+
+<BaseLayout title="全部文章" description="Maple 的全部技术、学习与生活文章。">
+  <div class="page-shell page-content">
+    <Breadcrumbs items={[{ label: '文章' }]} />
+    <header class="page-title">
+      <p class="eyebrow">ARCHIVE</p>
+      <h1>全部文章</h1>
+      <p>共 {posts.length} 篇记录。按时间排列，新的思考在前。</p>
+    </header>
+    <PostList posts={posts} />
+  </div>
+</BaseLayout>
