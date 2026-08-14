@@ -1,4 +1,4 @@
-# Maple Blog
+# 江枫博客
 
 使用 Astro 构建的个人博客，内容以 Markdown 保存，并在构建时生成完整静态 HTML。
 

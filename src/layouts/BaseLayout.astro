@@ -11,13 +11,13 @@ interface Props {
 }
 
 const {
-  title = 'Maple — 技术、学习与生活思考',
+  title = '江枫 — 技术、学习与生活思考',
   description = '记录软件开发、AI 学习与生活思考。',
   image = '/og.png',
   article = false,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const fullTitle = title.startsWith('Maple') ? title : `${title} · Maple`;
+const fullTitle = title.startsWith('江枫') ? title : `${title} · 江枫`;
 ---
 
 <!doctype html>
@@ -30,7 +30,7 @@ const fullTitle = title.startsWith('Maple') ? title : `${title} · Maple`;
     <meta name="theme-color" content="#f8f7f3" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#171817" media="(prefers-color-scheme: dark)" />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" type="application/rss+xml" title="Maple Blog" href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="江枫博客" href="/rss.xml" />
     <meta property="og:type" content={article ? 'article' : 'website'} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
@@ -44,7 +44,7 @@ const fullTitle = title.startsWith('Maple') ? title : `${title} · Maple`;
     <title>{fullTitle}</title>
     <script is:inline>
       (() => {
-        const saved = localStorage.getItem('maple-theme');
+        const saved = localStorage.getItem('jiangfeng-theme');
         const theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         document.documentElement.dataset.theme = theme;
       })();
@@ -59,7 +59,7 @@ const fullTitle = title.startsWith('Maple') ? title : `${title} · Maple`;
       document.querySelector('.theme-toggle')?.addEventListener('click', () => {
         const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
         document.documentElement.dataset.theme = next;
-        localStorage.setItem('maple-theme', next);
+        localStorage.setItem('jiangfeng-theme', next);
         const frame = document.querySelector('iframe.giscus-frame');
         frame?.contentWindow?.postMessage({ giscus: { setConfig: { theme: next } } }, 'https://giscus.app');
       });
