@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import PostList from '../../components/PostList.astro';
+import TopicSidebar from '../../components/TopicSidebar.astro';
 import { CATEGORY_META, categoryTitle, categoryUrl, publishedPosts } from '../../lib/blog';
 
 export async function getStaticPaths() {
@@ -31,6 +32,9 @@ const crumbs = parts.map((part: string, index: number) => ({
       <h1>{title}</h1>
       <p>{CATEGORY_META[current]?.description} · {posts.length} 篇文章</p>
     </header>
-    <PostList posts={posts} />
+    <div class="category-content-grid">
+      <TopicSidebar posts={allPosts} rootSlug={parts[0]} activePath={parts} />
+      <PostList posts={posts} />
+    </div>
   </div>
 </BaseLayout>

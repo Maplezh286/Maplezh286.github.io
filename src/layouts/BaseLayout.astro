@@ -8,6 +8,7 @@ interface Props {
   description?: string;
   image?: string;
   article?: boolean;
+  category?: string;
 }
 
 const {
@@ -15,6 +16,7 @@ const {
   description = '记录软件开发、AI 学习与生活思考。',
   image = '/og.png',
   article = false,
+  category,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const fullTitle = title.startsWith('江枫') ? title : `${title} · 江枫`;
@@ -52,7 +54,7 @@ const fullTitle = title.startsWith('江枫') ? title : `${title} · 江枫`;
   </head>
   <body>
     <a class="skip-link" href="#main-content">跳到正文</a>
-    <Header />
+    <Header activeCategory={category} />
     <main id="main-content"><slot /></main>
     <Footer />
     <script is:inline>

@@ -2,7 +2,8 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { categoryTitle, categoryUrl, formatDate, postSlug, readingTime } from '../../lib/blog';
+import TopicSidebar from '../../components/TopicSidebar.astro';
+import { categoryTitle, categoryUrl, formatDate, postSlug, publishedPosts, readingTime } from '../../lib/blog';
 
 export async function getStaticPaths() {
   const posts = (await getCollection('posts')).filter((post) => !post.data.draft);
@@ -11,13 +12,14 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content, headings } = await render(post);
+const allPosts = publishedPosts(await getCollection('posts'));
 const crumbs = post.data.category.map((slug: string, index: number) => ({
   label: categoryTitle(slug),
   href: categoryUrl(post.data.category.slice(0, index + 1)),
 }));
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description} article>
+<BaseLayout title={post.data.title} description={post.data.description} category={post.data.category[0]} article>
   <article class="article-shell">
     <header class="article-header">
       <Breadcrumbs items={[...crumbs, { label: post.data.title }]} />
@@ -32,6 +34,8 @@ const crumbs = post.data.category.map((slug: string, index: number) => ({
     </header>
 
     <div class="article-grid">
+      <TopicSidebar posts={allPosts} rootSlug={post.data.category[0]} activePostId={post.id} activePath={post.data.category} />
+
       <div class="prose">
         <Content />
         <footer class="article-footer">

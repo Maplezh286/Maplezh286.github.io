@@ -1,0 +1,60 @@
+---
+import type { Post } from '../lib/blog';
+import { categoryTitle, categoryUrl, postUrl } from '../lib/blog';
+
+interface Props {
+  posts: Post[];
+  rootSlug: string;
+  activePostId?: string;
+  activePath?: string[];
+}
+
+const { posts, rootSlug, activePostId, activePath = [] } = Astro.props;
+const rootPosts = posts.filter((post) => post.data.category[0] === rootSlug);
+const childSlugs = [...new Set(rootPosts.map((post) => post.data.category[1]).filter(Boolean))] as string[];
+const directPosts = rootPosts.filter((post) => post.data.category.length === 1);
+---
+
+<aside class="topic-sidebar" aria-label={`${categoryTitle(rootSlug)}下的小主题`}>
+  <div class="topic-sidebar-head">
+    <p>当前大类</p>
+    <a href={categoryUrl([rootSlug])}>{categoryTitle(rootSlug)}</a>
+  </div>
+
+  <nav>
+    {childSlugs.map((childSlug) => {
+      const childPosts = rootPosts.filter((post) => post.data.category[1] === childSlug);
+      const childActive = activePath[1] === childSlug || childPosts.some((post) => post.id === activePostId);
+      return (
+        <details open={childActive || childSlugs.length <= 5}>
+          <summary>
+            <a
+              href={categoryUrl([rootSlug, childSlug])}
+              aria-current={activePath.length === 2 && childActive ? 'page' : undefined}
+            >
+              {categoryTitle(childSlug)}
+            </a>
+            <span>{childPosts.length}</span>
+          </summary>
+          <ul>
+            {childPosts.map((post) => (
+              <li>
+                <a href={postUrl(post)} aria-current={post.id === activePostId ? 'page' : undefined}>
+                  {post.data.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </details>
+      );
+    })}
+
+    {directPosts.length > 0 && (
+      <div class="topic-direct-posts">
+        {directPosts.map((post) => (
+          <a href={postUrl(post)} aria-current={post.id === activePostId ? 'page' : undefined}>{post.data.title}</a>
+        ))}
+      </div>
+    )}
+  </nav>
+</aside>

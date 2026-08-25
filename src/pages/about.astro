@@ -3,12 +3,51 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 ---
 
-<BaseLayout title="关于我" description="Wait to be done...">
+<BaseLayout title="关于我" description="关于正义风，以及联系与反馈方式。">
   <div class="page-shell page-content narrow-page">
     <Breadcrumbs items={[{ label: '关于' }]} />
     <article class="about-page">
       <p class="eyebrow">ABOUT</p>
-      <h1>Wait to be done...</h1>
+      <h1>关于我</h1>
+      <p class="lead">你好！我是正義風，一名浙江大学25届软件工程的学生。这里是我记录学习和生活的空间。</p>
+      <p>
+        我希望把自己的实践和思考尽可能准确、清楚地记录下来。如果这些内容恰好能为您提供一点帮助，
+        那么这个博客就有了意义。
+      </p>
+
+      <h2>联系与交流</h2>
+      <p>如果您发现内容中有疏漏，或对这个博客有任何想法，欢迎通过下面的方式联系我：</p>
+      <dl class="contact-list">
+        <div>
+          <dt>GitHub</dt>
+          <dd><a href="https://github.com/YiFengZ17" target="_blank" rel="noopener noreferrer">@YiFengZ17</a></dd>
+        </div>
+        <div>
+          <dt>本站源码</dt>
+          <dd>
+            <a href="https://github.com/YiFengZ17/YiFengZ17.github.io" target="_blank" rel="noopener noreferrer">
+              YiFengZ17.github.io
+            </a>
+          </dd>
+        </div>
+        <div>
+          <dt>QQ 邮箱</dt>
+          <dd><a href="mailto:2449433975@qq.com">2449433975@qq.com</a></dd>
+        </div>
+        <div>
+          <dt>Gmail</dt>
+          <dd><a href="mailto:zyifeng839@gmail.com">zyifeng839@gmail.com</a></dd>
+        </div>
+        <div>
+          <dt>微信</dt>
+          <dd><code>zyf18871228200</code></dd>
+        </div>
+      </dl>
+
+      <div class="feedback-note">
+        <p>欢迎您向我提出建议。</p>
+        <p>哪怕只是一个很小的意见，也可能对我产生很大的帮助。谢谢您的阅读与反馈！</p>
+      </div>
     </article>
   </div>
 </BaseLayout>

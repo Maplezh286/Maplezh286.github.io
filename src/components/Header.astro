@@ -1,47 +1,77 @@
 ---
+import { getCollection } from 'astro:content';
+import { CATEGORY_META, categoryTitle, categoryUrl, publishedPosts } from '../lib/blog';
+
+interface Props { activeCategory?: string }
+const { activeCategory } = Astro.props;
 const currentPath = Astro.url.pathname;
-const links = [
+const utilityLinks = [
   { href: '/', label: '首页' },
   { href: '/posts/', label: '文章' },
   { href: '/categories/', label: '分类' },
   { href: '/about/', label: '关于' },
 ];
+
+const posts = publishedPosts(await getCollection('posts'));
+const usedTopCategories = new Set(posts.map((post) => post.data.category[0]));
+const knownTopCategories = Object.keys(CATEGORY_META).filter((slug) => usedTopCategories.has(slug));
+const extraTopCategories = [...usedTopCategories].filter((slug) => !knownTopCategories.includes(slug));
+const topCategories = [...knownTopCategories, ...extraTopCategories];
 ---
 
 <header class="site-header">
-  <div class="header-inner">
-    <a class="brand" href="/" aria-label="江枫博客首页">
-      <span class="brand-mark" aria-hidden="true">枫</span>
-      <span>江枫</span>
-    </a>
+  <div class="header-primary">
+    <div class="header-inner">
+      <a class="brand" href="/" aria-label="正义风's 博客空间首页">
+        <span class="brand-mark" aria-hidden="true">枫</span>
+        <strong>正义风's 博客空间</strong>
+      </a>
 
-    <nav class="main-nav" aria-label="主导航">
-      {links.map((link) => (
-        <a
-          href={link.href}
-          aria-current={currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)) ? 'page' : undefined}
-        >
-          {link.label}
-        </a>
-      ))}
-    </nav>
+      <nav class="utility-nav" aria-label="站点导航">
+        {utilityLinks.map((link) => (
+          <a
+            href={link.href}
+            aria-current={currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)) ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
 
-    <div class="header-actions">
-      <a class="icon-button search-button" href="/search/" aria-label="搜索文章" title="搜索">⌕</a>
-      <button class="icon-button theme-toggle" type="button" aria-label="切换深浅主题" title="切换主题">
-        <span class="theme-icon" aria-hidden="true">◐</span>
-      </button>
-      <button class="icon-button menu-toggle" type="button" aria-label="打开导航" aria-expanded="false">☰</button>
+      <div class="header-actions">
+        <a class="icon-button search-button" href="/search/" aria-label="搜索文章" title="搜索">⌕</a>
+        <button class="icon-button theme-toggle" type="button" aria-label="切换深浅主题" title="切换主题">
+          <span class="theme-icon" aria-hidden="true">◐</span>
+        </button>
+        <button class="icon-button menu-toggle" type="button" aria-label="打开分类导航" aria-expanded="false">☰</button>
+      </div>
     </div>
   </div>
+
+  <nav class="category-nav" aria-label="文章大分类">
+    <div class="category-nav-inner">
+      <a href="/" aria-current={currentPath === '/' ? 'page' : undefined}>
+        <span aria-hidden="true">⌂</span> 首页
+      </a>
+      {topCategories.map((slug) => (
+        <a
+          href={categoryUrl([slug])}
+          aria-current={activeCategory === slug || currentPath.startsWith(categoryUrl([slug])) ? 'page' : undefined}
+        >
+          {categoryTitle(slug)}
+        </a>
+      ))}
+      <a class="all-posts-link" href="/posts/" aria-current={currentPath.startsWith('/posts/') ? 'page' : undefined}>全部文章</a>
+    </div>
+  </nav>
 </header>
 
 <script is:inline>
   const menuButton = document.querySelector('.menu-toggle');
-  const mainNav = document.querySelector('.main-nav');
+  const categoryNav = document.querySelector('.category-nav');
   menuButton?.addEventListener('click', () => {
-    const open = mainNav?.classList.toggle('is-open') ?? false;
+    const open = categoryNav?.classList.toggle('is-open') ?? false;
     menuButton.setAttribute('aria-expanded', String(open));
-    menuButton.setAttribute('aria-label', open ? '关闭导航' : '打开导航');
+    menuButton.setAttribute('aria-label', open ? '关闭分类导航' : '打开分类导航');
   });
 </script>

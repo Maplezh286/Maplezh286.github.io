@@ -3,13 +3,15 @@ import type { CollectionEntry } from 'astro:content';
 export type Post = CollectionEntry<'posts'>;
 
 export const CATEGORY_META: Record<string, { title: string; description: string }> = {
-  technology: { title: '技术', description: '编程、工具与软件开发实践' },
+  technology: { title: '杂项', description: '工具、网络与其他零散记录' },
   tools: { title: '工具', description: '提高创造与开发效率的工具' },
+  network: { title: '网络工具', description: '网络相关的工具与链接记录' },
   fundamentals: { title: '基础知识', description: '值得反复查阅的基础教程' },
   development: { title: '软件开发', description: '项目实践、工程经验与方法' },
   learning: { title: '学习', description: '学习方法、知识管理与成长' },
   methods: { title: '方法', description: '可复用的学习与思考方法' },
   life: { title: '生活', description: '生活观察与个人记录' },
+  food: { title: '美食记录', description: '吃过的店、个人评分与回购清单' },
   thinking: { title: '思考', description: '关于时间、选择与心智的思考' },
 };
 

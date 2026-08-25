@@ -1,176 +1,182 @@
 ---
-title: 最简单配置 Claude Code 的方法
-description: 使用智谱 GLM 大模型与 Claude Code，在国内快速完成一套高性价比的开发环境配置。
+title: 最简单配置 Claude Code + DeepSeek 的方法
+description: 在 Windows 与 WSL 中安装 Claude Code，并接入国内 DeepSeek API。
 publishedAt: 2026-04-12
+updatedAt: 2026-08-25
 category: [technology, tools]
-tags: [Claude Code, AI 工具, 教程]
+tags: [Claude Code, DeepSeek, AI 工具, 教程]
 featured: true
 legacySlug: claude-code-setup
 ---
 
-由于A社反华严重，国内想要使用原汁原味的Claude Code非常麻烦。借鉴所谓的“消费降级”，我们可以使用智谱glm大模型+Claude Code框架的方法，合法合规地使用到”性价比版“Claude Code。
+在国内直接使用 Claude 模型，账号、网络和付费都可能比较麻烦。如果你主要想用 Claude Code 的操作方式，不强求背后的模型一定是 Claude，可以把后端换成 DeepSeek。
 
-首先，简单阐述原理（我不是砖家，只能打比方说明）：Claude Code其实分为Claude Code框架和Claude Code Opus4.6/Sonnet4等大模型。好比你有一台苹果电脑：Claude Code框架就是电脑外壳+键盘+屏幕+操作系统+硬盘，而Opus大模型就是CPU（中央处理器）。
+先说明原理：**Claude Code 是编程工具，DeepSeek 是负责思考和回答的模型。**可以把它们理解成播放器和片源。我们保留 Claude Code 读写文件、运行命令和修改代码的能力，只把默认模型换成 DeepSeek。
 
-关键来了：Claude Code框架本身是免费的，只是调用A社的大模型需要A社的账号并付费。而注册A社账号需要科学上网，外国手机号，国际银行卡，使用时还要注意你的本机IP（可能被封号）。所以对于像本人这样的非刚需用户，配置一个原装Claude Code费财费力。
+这不是“原装 Claude”，但安装简单、国内访问方便，日常写代码完全够用。DeepSeek 已经提供官方的 Anthropic 兼容接口，不需要自己搭建中转服务。
 
-但是，智谱做到了国内许多AI厂家没有做到的事：他推出了官方兼容API接口。通俗地说：他直接在自家服务器上做了一层「翻译」，把 Anthropic 的 API 协议转成自家模型能懂的格式。你只需要在Claude Code框架的`settings.json`文件里配置好API信息即可调用国内大模型。这样就避免了注册A社账号和海外付费。
+本文以 **Windows + WSL（Ubuntu）** 为例，从零完成配置。
 
-所以，接下来是完整的操作流程（这份教程会非常详细，如果某些步骤你已经会了，请跳过）：
+## 一、安装 WSL
 
+以管理员身份打开 PowerShell，输入：
 
-### 一、安装WSL
-
-WSL是windows的Linux子系统，让Claude Code跑在Linux上方便管理服务器和项目。
-
-### 操作步骤
-
-以管理员身份打开PowerShell
-
-- 点击Windows左下角搜索图标
-    
-- 输入 `PowerShell`
-    
-- 右键点击“Windows PowerShell”，选择 **“以管理员身份运行”**
-    
-- 如果弹出用户账户控制窗口，点击“是”
-    
-
-
-在弹出的蓝色窗口中，输入以下命令然后按回车：
-
-```
+```powershell
 wsl --install
 ```
 
-系统会自动：
+安装完成后重启电脑。第一次打开 Ubuntu 时，系统会要求设置 Linux 用户名和密码。输入密码时屏幕不会显示字符，这是正常现象。
 
-- 启用WSL功能
-    
-- 下载并安装Ubuntu Linux系统
-    
-- 完成后**提示重启电脑**
+以后在 PowerShell 中输入下面的命令，就能进入 Ubuntu：
 
+```powershell
+wsl
+```
 
+如果你已经在使用 WSL，可以直接跳到下一步。
 
- 首次启动Ubuntu
+## 二、安装 Node.js 和 Claude Code
 
-- 重启后，在开始菜单搜索 `Ubuntu` 并点击打开
-    
-- 首次打开会提示“正在安装”，等待1-2分钟
-    
-- 系统会提示你输入**用户名**（全部小写字母，如 `john`）
-    
-- 然后输入**密码**（输入时屏幕不显示任何字符，这是正常的）
-    
-- 确认密码
-
-想要再次使用wsl就打开powershell，输入`wsl`，就可以进入Linux系统了。
-
-
-## 二、安装Node.js
-
-Node.js是一个运行环境，安装Node.js自动会安装npm，npm你可以理解为程序员的应用商城，跟Apple Store是一个意思。Claude Code依赖Node.js运行，需要18.0或更高版本。
-
-在wsl窗口中输入以下命令并回车：
+在 WSL 中执行：
 
 ```bash
 sudo apt update
-```
-
-（首次使用sudo会提示输入密码，输入你刚才设置的密码即可）
-
-安装Node.js
-
-```bash
 sudo apt install -y nodejs npm
 ```
 
-验证安装成功
+检查版本：
 
 ```bash
 node --version
+npm --version
 ```
-如果显示类似 `v18.x.x` 或 `v20.x.x` 的版本号，说明安装成功。
 
-## 第三步：安装Claude Code
+Claude Code 要求 Node.js 18 或更高版本。如果你的版本低于 18，请先升级 Node.js。
 
-在wsl输入
+然后安装 Claude Code：
+
 ```bash
 npm install -g @anthropic-ai/claude-code
 ```
-验证安装完毕
+
+检查是否安装成功：
+
 ```bash
 claude --version
 ```
-返回版本号即为成功。或者输入：
-```bash
-claude
+
+能看到版本号，就说明 Claude Code 已经装好了。
+
+## 三、获取 DeepSeek API Key
+
+打开 [DeepSeek 开放平台](https://platform.deepseek.com/)，注册并登录账号，然后进入 [API Keys](https://platform.deepseek.com/api_keys) 创建一个新的密钥。
+
+API Key 通常以 `sk-` 开头。它相当于你的支付密码，拿到以后请注意三件事：
+
+1. 不要发给别人；
+2. 不要写进公开仓库；
+3. 不要出现在截图里。
+
+DeepSeek 网页版和 API 是两套计费方式。使用 Claude Code 消耗的是 API 余额，需要在开放平台单独充值。
+
+## 四、让 Claude Code 使用 DeepSeek
+
+Claude Code 的个人配置文件位于：
+
+```text
+~/.claude/settings.json
 ```
-出现云朵图案就安装成功了。但现在还不能用。
 
-## 第四步：获取智谱API Key（并订阅套餐）
+先创建目录和配置文件：
 
-先注册账号，然后创建自己的API Key。新人会有免费token额度，不用急着订阅套餐。
+```bash
+mkdir -p ~/.claude
+nano ~/.claude/settings.json
+```
 
-需要注意的是：API Key请保存，这相当于密码，泄露了别人可以偷你的token用。
+把下面的内容完整复制进去，并将 `你的 DeepSeek API Key` 替换成刚才创建的密钥：
 
-## 第五步：配置Claude Code接入智谱GLM
-
-打开文件管理器，打开Linux的Ubuntu文件夹，找到`.claude`文件夹。
-我的路径示例：`"\\wsl.localhost\Ubuntu-24.04\home\yifeng\.claude\"`
-然后，如果你发现文件夹里没有`settings.json`文件，自己用VScode新建一个。
 ```json
 {
-
-  "env": {
-
-    "ANTHROPIC_AUTH_TOKEN": "your API Key",
-
-    "ANTHROPIC_BASE_URL": "https://open.bigmodel.cn/api/anthropic",
-
-    "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-5",
-
-    "API_TIMEOUT_MS": "3000000",
-
-    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": 1
-
-  }
-
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://api.deepseek.com/anthropic",
+    "ANTHROPIC_AUTH_TOKEN": "你的 DeepSeek API Key",
+    "ANTHROPIC_MODEL": "deepseek-v4-pro[1m]",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "deepseek-v4-pro[1m]",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "deepseek-v4-pro[1m]",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "deepseek-v4-flash",
+    "CLAUDE_CODE_SUBAGENT_MODEL": "deepseek-v4-flash",
+    "CLAUDE_CODE_EFFORT_LEVEL": "max",
+    "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "786432"
+  }
 }
 ```
 
-那个大模型名'glm-5'供你选择，但必须是智谱的大模型哈。
+在 Nano 中按 `Ctrl + O` 保存，按回车确认，再按 `Ctrl + X` 退出。
 
-好了，重启power shell，输入`wsl`，输入`claude`。你会看到云朵图案。输入`hi`，如果它也跟你问好，那么恭喜你，成功在国内搭建起了最有性价比，最简单的Claude Code。
+这里最容易写错的是 API 地址。Claude Code 使用的是 Anthropic 格式，所以地址必须是：
 
-![Claude Code 启动界面 1](/assets/images/claude_hi_1.png)
+```text
+https://api.deepseek.com/anthropic
+```
 
-![Claude Code 启动界面 2](/assets/images/claude_hi_2.png)
+不要写成普通 OpenAI 格式的 `https://api.deepseek.com`。
 
-接下来讨论一下它的能力：
-AI给我的比较是：
-### 最终评分对比
+## 五、启动 Claude Code
 
-| 维度    | 智谱方案   | 原装方案  | 胜出方      |
-| ----- | ------ | ----- | -------- |
-| 操作体验  | 10/10  | 10/10 | 平手       |
-| 代码能力  | 8.5/10 | 9/10  | 原装（小幅领先） |
-| 网络可用性 | 10/10  | 4/10  | 智谱       |
-| 性价比   | 10/10  | 6/10  | 智谱       |
+先进入你的项目目录。例如：
 
-日常使用绝对没问题。
+```bash
+cd /mnt/c/Users/你的用户名/Desktop/你的项目
+```
 
-如果有配置的同学也可以点我的邀请链接，一起白嫖智谱的token。
-邀请链接：`https://www.bigmodel.cn/invite?icode=cpOTYGypstnYM6w8oclWLlwpqjqOwPB5EXW6OL4DgqY%3D`
+然后启动：
 
-注：千问，Minimax也可以将大模型接入Claude Code，操作完全一样，只是在设置文件里需要更改一下参数。
----
-title: 最简单配置 Claude Code 的方法
-description: 使用智谱 GLM 大模型与 Claude Code，在国内快速完成一套高性价比的开发环境配置。
-publishedAt: 2026-04-12
-category: [technology, tools]
-tags: [Claude Code, AI 工具, 教程]
-featured: true
-legacySlug: claude-code-setup
----
+```bash
+claude
+```
+
+输入一句简单的话测试。如果它能正常回答，并且可以读取当前项目，就说明配置成功了。
+
+你使用的仍然是 Claude Code 界面，但真正处理请求的是 DeepSeek。部分界面可能继续显示 Claude 的模型名称，这是兼容层的模型映射，不代表请求仍在调用 Claude。
+
+## 模型怎么选？
+
+- `deepseek-v4-pro[1m]`：能力更强，适合复杂项目和长上下文；
+- `deepseek-v4-flash`：速度更快、价格更低，适合简单修改和子任务。
+
+上面的配置让主任务使用 Pro，简单任务和子任务使用 Flash，比较省心。如果你更在意费用，也可以把所有模型都改成 `deepseek-v4-flash`。
+
+旧教程中常见的 `deepseek-chat` 和 `deepseek-reasoner` 已经停用，不要再使用。
+
+## 常见问题
+
+### 出现 401 或认证失败
+
+先检查 API Key 是否复制完整，以及 DeepSeek API 账户是否还有余额。
+
+### 出现 404 或无法连接
+
+检查 `ANTHROPIC_BASE_URL`，末尾必须包含 `/anthropic`。
+
+### 提示模型不存在
+
+检查模型名是否为 `deepseek-v4-pro[1m]` 或 `deepseek-v4-flash`，不要照抄旧教程里的模型名。
+
+### 输入 `claude` 后提示找不到命令
+
+关闭并重新打开 WSL，再运行 `claude --version`。如果仍然找不到，检查 npm 的全局安装目录是否已经加入 `PATH`。
+
+## 使用前需要知道
+
+DeepSeek 接入 Claude Code 后，读写代码、运行命令和调用常用工具都没有问题，但它和原版 Claude 仍然不是同一个模型。回答风格、代码能力和部分多模态功能会有差异。
+
+另外，API 按 Token 计费。让模型读取大型仓库、反复执行任务或使用网页搜索，都会增加消耗。建议先从小项目开始，并在 DeepSeek 开放平台设置合理的余额。
+
+到这里就配置完成了。核心只有三件事：**装好 Claude Code、准备 DeepSeek API Key、填对 API 地址和模型名。**其余配置出问题时，先检查这三处。
+
+## 参考资料
+
+- [DeepSeek 官方：接入 Claude Code](https://api-docs.deepseek.com/zh-cn/quick_start/agent_integrations/claude_code/)
+- [DeepSeek 官方：Anthropic API 兼容说明](https://api-docs.deepseek.com/zh-cn/guides/anthropic_api)
+- [DeepSeek 官方：模型与价格](https://api-docs.deepseek.com/zh-cn/quick_start/pricing)
