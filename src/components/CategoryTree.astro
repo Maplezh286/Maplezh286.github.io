@@ -1,6 +1,6 @@
 ---
 import type { Post } from '../lib/blog';
-import { categoryTitle, categoryUrl, postUrl } from '../lib/blog';
+import { CATEGORY_CHILDREN, categoryTitle, categoryUrl, postUrl } from '../lib/blog';
 
 interface Props { posts: Post[]; showPosts?: boolean }
 const { posts, showPosts = true } = Astro.props;
@@ -15,6 +15,14 @@ for (const post of posts) {
     const node = branch.get(slug)!;
     if (index === post.data.category.length - 1) node.posts.push(post);
     branch = node.children;
+  });
+}
+
+for (const [topSlug, childSlugs] of Object.entries(CATEGORY_CHILDREN)) {
+  if (!root.has(topSlug)) root.set(topSlug, { slug: topSlug, children: new Map(), posts: [] });
+  const top = root.get(topSlug)!;
+  childSlugs.forEach((childSlug) => {
+    if (!top.children.has(childSlug)) top.children.set(childSlug, { slug: childSlug, children: new Map(), posts: [] });
   });
 }
 

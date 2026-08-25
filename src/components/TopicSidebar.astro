@@ -1,6 +1,6 @@
 ---
 import type { Post } from '../lib/blog';
-import { categoryTitle, categoryUrl, postUrl } from '../lib/blog';
+import { CATEGORY_CHILDREN, categoryTitle, categoryUrl, postUrl } from '../lib/blog';
 
 interface Props {
   posts: Post[];
@@ -11,7 +11,10 @@ interface Props {
 
 const { posts, rootSlug, activePostId, activePath = [] } = Astro.props;
 const rootPosts = posts.filter((post) => post.data.category[0] === rootSlug);
-const childSlugs = [...new Set(rootPosts.map((post) => post.data.category[1]).filter(Boolean))] as string[];
+const childSlugs = [...new Set([
+  ...(CATEGORY_CHILDREN[rootSlug] ?? []),
+  ...rootPosts.map((post) => post.data.category[1]).filter(Boolean),
+])] as string[];
 const directPosts = rootPosts.filter((post) => post.data.category.length === 1);
 ---
 

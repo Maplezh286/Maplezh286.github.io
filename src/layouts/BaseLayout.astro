@@ -13,14 +13,15 @@ interface Props {
 }
 
 const {
-  title = '江枫 — 技术、学习与生活思考',
+  title = '正义风的博客空间',
   description = '记录软件开发、AI 学习与生活思考。',
   image = '/og.png',
   article = false,
   category,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const fullTitle = title.startsWith('江枫') ? title : `${title} · 江枫`;
+const siteTitle = '正义风的博客空间';
+const fullTitle = title === siteTitle ? siteTitle : `${title} · ${siteTitle}`;
 ---
 
 <!doctype html>
@@ -33,7 +34,7 @@ const fullTitle = title.startsWith('江枫') ? title : `${title} · 江枫`;
     <meta name="theme-color" content="#f8f7f3" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#171817" media="(prefers-color-scheme: dark)" />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" type="application/rss+xml" title="江枫博客" href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="正义风的博客空间" href="/rss.xml" />
     <meta property="og:type" content={article ? 'article' : 'website'} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />

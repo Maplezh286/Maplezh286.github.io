@@ -4,12 +4,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import PostList from '../../components/PostList.astro';
 import TopicSidebar from '../../components/TopicSidebar.astro';
-import { CATEGORY_META, categoryTitle, categoryUrl, publishedPosts } from '../../lib/blog';
+import { CATEGORY_CHILDREN, CATEGORY_META, categoryTitle, categoryUrl, publishedPosts } from '../../lib/blog';
 
 export async function getStaticPaths() {
   const posts = (await getCollection('posts')).filter((post) => !post.data.draft);
   const paths = new Set<string>();
   posts.forEach((post) => post.data.category.forEach((_, index) => paths.add(post.data.category.slice(0, index + 1).join('/'))));
+  Object.entries(CATEGORY_CHILDREN).forEach(([topSlug, childSlugs]) => {
+    paths.add(topSlug);
+    childSlugs.forEach((childSlug) => paths.add(`${topSlug}/${childSlug}`));
+  });
   return [...paths].map((path) => ({ params: { path }, props: { parts: path.split('/') } }));
 }
 
@@ -34,7 +38,7 @@ const crumbs = parts.map((part: string, index: number) => ({
     </header>
     <div class="category-content-grid">
       <TopicSidebar posts={allPosts} rootSlug={parts[0]} activePath={parts} />
-      <PostList posts={posts} />
+      {posts.length > 0 ? <PostList posts={posts} /> : <p class="empty-category">暂无文章，相关笔记会陆续整理到这里。</p>}
     </div>
   </div>
 </BaseLayout>
