@@ -4,6 +4,7 @@ description: 本文结合本人的刷题经历，总结自己是如何从零开�
 publishedAt: 2026-08-25
 category: [learning, algorithms]
 tags: [算法, LeetCode, Python, 学习方法]
+featured: true
 ---
 
 本文结合本人的刷题经历，总结自己是如何从零开始培养算法思维的。

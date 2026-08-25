@@ -4,6 +4,7 @@ description: 从注册 ChatGPT 账号到通过 Apple 礼品卡开通会员，记
 publishedAt: 2026-08-25
 category: [technology, tools]
 tags: [Codex, ChatGPT, AI 工具, 教程]
+featured: true
 ---
 
 使用原装 Codex，首先需要准备一个可以正常登录的 ChatGPT 账号。下面记录一下我使用 Gmail 注册账号，并通过 Apple 礼品卡开通会员的流程。
