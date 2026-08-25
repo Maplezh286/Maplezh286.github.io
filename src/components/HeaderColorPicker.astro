@@ -1,0 +1,37 @@
+---
+const colors = [
+  { id: 'red', label: '红色', color: '#c85b4d', ink: '#fffaf7' },
+  { id: 'pink', label: '粉色', color: '#eac1ca', ink: '#40232c' },
+  { id: 'purple', label: '紫色', color: '#8d75bd', ink: '#fffaff' },
+  { id: 'blue', label: '蓝色', color: '#5d86ba', ink: '#f8fbff' },
+  { id: 'cyan', label: '青色', color: '#70c5cc', ink: '#153337' },
+  { id: 'teal', label: '青绿', color: '#4f9994', ink: '#f7fffd' },
+  { id: 'green', label: '绿色', color: '#6f9f62', ink: '#fafff8' },
+  { id: 'yellow', label: '黄色', color: '#e3c75e', ink: '#302a13' },
+  { id: 'orange', label: '橙色', color: '#df9f53', ink: '#362311' },
+  { id: 'brown', label: '棕色', color: '#946c55', ink: '#fffaf6' },
+  { id: 'gray', label: '灰色', color: '#9098a2', ink: '#fbfcfd' },
+  { id: 'black', label: '黑色', color: '#292b2f', ink: '#faf9f5' },
+];
+---
+
+<section class="header-color-picker" aria-labelledby="header-color-picker-title">
+  <div class="header-color-picker-copy">
+    <h2 id="header-color-picker-title">颜色主题调整</h2>
+    <p>选择一种页眉颜色，设置会在其他页面继续保留。</p>
+  </div>
+  <div class="header-color-options" role="group" aria-label="选择页眉颜色">
+    {colors.map((color) => (
+      <button
+        class="header-color-option"
+        type="button"
+        data-header-color-choice={color.id}
+        aria-label={`将页眉设为${color.label}`}
+        aria-pressed="false"
+        style={`--swatch: ${color.color}; --swatch-ink: ${color.ink};`}
+      >
+        {color.label}
+      </button>
+    ))}
+  </div>
+</section>

@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import HeaderColorPicker from '../components/HeaderColorPicker.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -49,6 +50,10 @@ const fullTitle = title.startsWith('江枫') ? title : `${title} · 江枫`;
         const saved = localStorage.getItem('jiangfeng-theme');
         const theme = saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         document.documentElement.dataset.theme = theme;
+
+        const headerColors = ['red', 'pink', 'purple', 'blue', 'cyan', 'teal', 'green', 'yellow', 'orange', 'brown', 'gray', 'black'];
+        const savedHeaderColor = localStorage.getItem('jiangfeng-header-color');
+        document.documentElement.dataset.headerColor = headerColors.includes(savedHeaderColor) ? savedHeaderColor : 'yellow';
       })();
     </script>
   </head>
@@ -56,6 +61,7 @@ const fullTitle = title.startsWith('江枫') ? title : `${title} · 江枫`;
     <a class="skip-link" href="#main-content">跳到正文</a>
     <Header activeCategory={category} />
     <main id="main-content"><slot /></main>
+    <HeaderColorPicker />
     <Footer />
     <script is:inline>
       document.querySelector('.theme-toggle')?.addEventListener('click', () => {
@@ -64,6 +70,19 @@ const fullTitle = title.startsWith('江枫') ? title : `${title} · 江枫`;
         localStorage.setItem('jiangfeng-theme', next);
         const frame = document.querySelector('iframe.giscus-frame');
         frame?.contentWindow?.postMessage({ giscus: { setConfig: { theme: next } } }, 'https://giscus.app');
+      });
+
+      const setHeaderColor = (color, save = false) => {
+        document.documentElement.dataset.headerColor = color;
+        document.querySelectorAll('[data-header-color-choice]').forEach((button) => {
+          button.setAttribute('aria-pressed', String(button.dataset.headerColorChoice === color));
+        });
+        if (save) localStorage.setItem('jiangfeng-header-color', color);
+      };
+
+      setHeaderColor(document.documentElement.dataset.headerColor || 'yellow');
+      document.querySelectorAll('[data-header-color-choice]').forEach((button) => {
+        button.addEventListener('click', () => setHeaderColor(button.dataset.headerColorChoice, true));
       });
     </script>
   </body>
